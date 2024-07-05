@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace WpfTimelineControl
 {
@@ -7,16 +9,46 @@ namespace WpfTimelineControl
         public Timeline()
         {
             InitializeComponent();
-            DataContext = this;
         }
 
-        public TimelineData TimelineData
+        public SolidColorBrush[] TimelineEntryBrushes
         {
-            get { return (TimelineData)GetValue(TimelineDataProperty); }
-            set { SetValue(TimelineDataProperty, value); }
+            get => (SolidColorBrush[])GetValue(TimelineEntryBrushesProperty);
+            set => SetValue(TimelineEntryBrushesProperty, value);
         }
 
-        public static readonly DependencyProperty TimelineDataProperty =
-            DependencyProperty.Register("TimelineData", typeof(TimelineData), typeof(Timeline), new PropertyMetadata(new TimelineData()));
+        public string NameLabel
+        {
+            get { return (string)GetValue(NameLabelProperty); }
+            set { SetValue(NameLabelProperty, value); }
+        }
+
+        protected bool LabelsExceedBars
+        {
+            get { return (bool)GetValue(LabelsExceedBarsProperty); }
+            set { SetValue(LabelsExceedBarsProperty, value); }
+        }
+
+        public static readonly DependencyProperty TimelineEntryBrushesProperty = DependencyProperty.Register(
+                "TimelineEntryBrushes",
+                typeof(SolidColorBrush[]),
+                typeof(Timeline));
+
+        public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
+                "NameLabel",
+                typeof(string),
+                typeof(Timeline),
+                new PropertyMetadata("Name"));
+
+        protected static readonly DependencyProperty LabelsExceedBarsProperty = DependencyProperty.Register(
+                "LabelsExceedBars",
+                typeof(bool),
+                typeof(Timeline),
+                new PropertyMetadata(true));
+
+        private void ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            svLabels.ScrollToHorizontalOffset(e.HorizontalOffset);
+        }
     }
 }
