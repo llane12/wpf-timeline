@@ -9,11 +9,15 @@
         <local:TimelineElementWidthConverter x:Key="timelineWidthConverter" />
         <local:TimelineEntryForegroundConverter x:Key="timelineForegroundConverter" />
         <local:TimelineEntryBackgroundConverter x:Key="timelineBackgroundConverter" />
+        
         <SolidColorBrush x:Key="majorIntervalBrush" Color="#BDBDBD" />
         <SolidColorBrush x:Key="minorIntervalBrush" Color="#E1E1E1" />
         <SolidColorBrush x:Key="labelBrush" Color="#FF444444" />
-        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" True="Visible" False="Collapsed" />
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityInvertedConverter" True="Collapsed" False="Visible" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenConverter" True="Visible" False="Hidden" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenInvertedConverter" True="Hidden" False="Visible" />
 
         <SolidColorBrush x:Key="Button.Foreground" Color="#FF444444" />
         <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF5EA4E0" />
@@ -70,7 +74,7 @@
 
                 <CheckBox Grid.Column="0" IsChecked="{Binding Path=LabelsExceedBars,ElementName=timelineControl}" VerticalAlignment="Center">
                     <Grid>
-                        <Border BorderThickness="2,1" Width="20" HorizontalAlignment="Left">
+                        <Border HorizontalAlignment="Left" BorderThickness="2,1" Width="20" SnapsToDevicePixels="True">
                             <Border.BorderBrush>
                                 <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
                                     <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
@@ -83,15 +87,29 @@
                                     <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                 </MultiBinding>
                             </Border.Background>
+
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityHiddenInvertedConverter}}">
+                                <TextBlock Text="{Binding Path=NameLabel,ElementName=timelineControl,FallbackValue='Name'}" FontSize="14" Margin="0,-1">
+                                    <TextBlock.Foreground>
+                                        <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
+                                            <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                            <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                        </MultiBinding>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Grid>
                         </Border>
-                        <TextBlock Text="{Binding Path=NameLabel,ElementName=timelineControl,FallbackValue='Name'}" Margin="2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <TextBlock.Foreground>
-                                <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
-                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
-                                    <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
-                                </MultiBinding>
-                            </TextBlock.Foreground>
-                        </TextBlock>
+
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityHiddenConverter}}">
+                            <TextBlock Text="{Binding Path=NameLabel,ElementName=timelineControl,FallbackValue='Name'}" FontSize="14" Margin="2,0,0,0">
+                                <TextBlock.Foreground>
+                                    <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
+                                        <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                        <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                    </MultiBinding>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                        </Grid>
                     </Grid>
                 </CheckBox>
 
