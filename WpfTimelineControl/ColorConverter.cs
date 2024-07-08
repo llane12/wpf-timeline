@@ -6,7 +6,7 @@ namespace WpfTimelineControl
     /// <summary>
     /// Source: https://stackoverflow.com/a/1626175/11646956
     /// </summary>
-    public static class ColorHelper
+    public static class ColorConverter
     {
         public static void ColorToHsv(Color color, out double hue, out double saturation, out double value)
         {

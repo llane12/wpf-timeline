@@ -7,19 +7,6 @@ namespace WpfTimelineControl
     public interface ITimelineBuilder
     {
         TimelineViewModel BuildViewModel(params TimelineElement[] timelineEntries);
-
-        void RecalculateMajorInterval(TimelineViewModel viewModel);
-
-        /// <summary>
-        /// Clear and rebuild the Timeline interval markers, these are the time markers along the top and vertical bars
-        /// </summary>
-        void RebuildIntervalMarkers(TimelineViewModel viewModel);
-
-        /// <summary>
-        /// <para>Clear and rebuild the date markers along the top of the Timeline.<br/>
-        /// Make sure to call <see cref="RebuildIntervalMarkers"/> first, so the <see cref="TimelineViewModel.Start"/> value is re-calculated.</para>
-        /// </summary>
-        void RebuildDateMarkers(TimelineViewModel viewModel);
     }
 
     public static class TimelineBuilderFactory
@@ -30,20 +17,20 @@ namespace WpfTimelineControl
         }
     }
 
-    public class TimelineBuilder : ITimelineBuilder
+    internal class TimelineBuilder : ITimelineBuilder
     {
         public TimelineViewModel BuildViewModel(params TimelineElement[] timelineEntries)
         {
-            TimelineViewModel viewModel = new TimelineViewModel(this);
-
             if (timelineEntries == null) throw new ArgumentNullException(nameof(timelineEntries));
+
+            TimelineViewModel viewModel = new TimelineViewModel();
 
             foreach (var entry in timelineEntries.OrderBy(t => t.Start))
             {
-                viewModel.Entries.Add(entry);
+                viewModel.Elements.Add(entry);
             }
 
-            if (viewModel.Entries.Count == 0) return viewModel;
+            if (viewModel.Elements.Count == 0) return viewModel;
 
             RecalculateMajorInterval(viewModel);
             RebuildIntervalMarkers(viewModel);
@@ -52,10 +39,15 @@ namespace WpfTimelineControl
             return viewModel;
         }
 
-        public void RecalculateMajorInterval(TimelineViewModel viewModel)
+        /// <summary>
+        /// <para>Find the best major interval value based on the total duration of the events
+        /// (from the beggining of the first to the end of the last).<br/>
+        /// Assumes the collection of <see cref="TimelineElement"/> used to build the <see cref="TimelineViewModel"/> has been sorted.</para>
+        /// </summary>
+        private static void RecalculateMajorInterval(TimelineViewModel viewModel)
         {
-            DateTime earliestStart = viewModel.Entries.First().Start; // assume entries are sorted
-            DateTime latestEnd = viewModel.Entries.Max(e => e.End);
+            DateTime earliestStart = viewModel.Elements.First().Start; // assume entries are sorted
+            DateTime latestEnd = viewModel.Elements.Max(e => e.End);
 
             TimeSpan durationOfAllEntries = latestEnd - earliestStart;
 
@@ -72,11 +64,14 @@ namespace WpfTimelineControl
             viewModel.SetMajorIntervalSeconds(closestOption);
         }
 
-        public void RebuildIntervalMarkers(TimelineViewModel viewModel)
+        /// <summary>
+        /// Clear and rebuild the Timeline interval markers, these are the time markers along the top and vertical bars.
+        /// </summary>
+        internal static void RebuildIntervalMarkers(TimelineViewModel viewModel)
         {
             viewModel.IntervalMarkers.Clear();
 
-            DateTime start = viewModel.Entries.First().Start; // assume entries are sorted
+            DateTime start = viewModel.Elements.First().Start; // assume entries are sorted
 
             DateTime position = start.Date; // start at the beginning of the day
 
@@ -92,7 +87,7 @@ namespace WpfTimelineControl
             viewModel.SetStart(position);
 
             // keep adding until the last interval is just before the latest entry
-            DateTime latestEnd = viewModel.Entries.Max(e => e.End);
+            DateTime latestEnd = viewModel.Elements.Max(e => e.End);
             while (position + interval <= latestEnd)
             {
                 position += interval;
@@ -107,7 +102,11 @@ namespace WpfTimelineControl
             }
         }
 
-        public void RebuildDateMarkers(TimelineViewModel viewModel)
+        /// <summary>
+        /// <para>Clear and rebuild the date markers along the top of the Timeline.<br/>
+        /// Make sure to call <see cref="RebuildIntervalMarkers"/> first, so the <see cref="TimelineViewModel.Start"/> value is re-calculated.</para>
+        /// </summary>
+        internal static void RebuildDateMarkers(TimelineViewModel viewModel)
         {
             viewModel.DateMarkers.Clear();
 

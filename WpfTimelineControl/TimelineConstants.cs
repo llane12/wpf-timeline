@@ -3,7 +3,7 @@
     public static class TimelineConstants
     {
         /// <summary>
-        /// If the total duration is x times greater than the current interval, use the next one up
+        /// If the total duration of the events on the timeline is x times greater than the current interval, use the next one up.
         /// </summary>
         public static int TimelineScalingFactor = 3;
 

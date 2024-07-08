@@ -17,6 +17,9 @@ namespace WpfTimelineControl
             set => SetValue(TimelineEntryBrushesProperty, value);
         }
 
+        /// <summary>
+        /// Support for translation
+        /// </summary>
         public string NameLabel
         {
             get { return (string)GetValue(NameLabelProperty); }

@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Input;
 
 namespace WpfTimelineControl
 {
-    public class TimelineViewModel : INotifyPropertyChanged
+    public class TimelineViewModel : ViewModelBase
     {
-        private readonly ITimelineBuilder timelineBuilder;
-
         private string title;
         private bool showControls = true;
         private DateTime start = DateTime.MinValue;
@@ -20,10 +15,8 @@ namespace WpfTimelineControl
         private int pixelsPerInterval = 320;
         private int majorIntervalSeconds = 60;
 
-        public TimelineViewModel(ITimelineBuilder timelineBuilder)
+        public TimelineViewModel()
         {
-            this.timelineBuilder = timelineBuilder;
-
             MajorIntervalSecondsDecreaseCommand = new MyCommand(MajorIntervalSecondsDecrease, MajorIntervalSecondsCanDecrease);
             MajorIntervalSecondsIncreaseCommand = new MyCommand(MajorIntervalSecondsIncrease, MajorIntervalSecondsCanIncrease);
 
@@ -33,7 +26,7 @@ namespace WpfTimelineControl
 
         public ObservableCollection<TimelineIntervalMarker> DateMarkers { get; } = new ObservableCollection<TimelineIntervalMarker>();
         public ObservableCollection<TimelineIntervalMarker> IntervalMarkers { get; } = new ObservableCollection<TimelineIntervalMarker>();
-        public ObservableCollection<TimelineElement> Entries { get; } = new ObservableCollection<TimelineElement>();
+        public ObservableCollection<TimelineElement> Elements { get; } = new ObservableCollection<TimelineElement>();
 
         public string Title
         {
@@ -76,8 +69,8 @@ namespace WpfTimelineControl
             set
             {
                 majorIntervalSeconds = value;
-                timelineBuilder.RebuildIntervalMarkers(this);
-                timelineBuilder.RebuildDateMarkers(this);
+                TimelineBuilder.RebuildIntervalMarkers(this);
+                TimelineBuilder.RebuildDateMarkers(this);
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Start));
@@ -161,45 +154,25 @@ namespace WpfTimelineControl
 
             return currentIndex < (options.Count - 1);
         }
-
-        #region INotifyPropertyChanged
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
     }
 
-    public class MyCommand : ICommand
+    /// <summary>
+    /// Used to represent the intervals and vertical bars across the timeline as well as the Days above the timeline 
+    /// </summary>
+    public class TimelineIntervalMarker : TimelineElement
     {
-        private readonly Action action;
-        private readonly Func<bool> canExecute;
-
-        public MyCommand(Action action, Func<bool> canExecute = null)
+        public TimelineIntervalMarker(DateTime start, TimeSpan duration, string name, bool first)
+            : base(name, start, duration)
         {
-            this.action = action;
-            this.canExecute = canExecute;
+            First = first;
         }
 
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
+        public TimelineIntervalMarker(DateTime start, DateTime end, string name, bool first)
+            : base(name, start, end)
         {
-            return canExecute?.Invoke() ?? true;
+            First = first;
         }
 
-        public void Execute(object parameter)
-        {
-            action?.Invoke();
-        }
-
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
-        }
+        public bool First { get; private set; }
     }
 }

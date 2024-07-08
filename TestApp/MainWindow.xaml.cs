@@ -1,6 +1,6 @@
-﻿using WpfTimelineControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using WpfTimelineControl;
 
 namespace TestApp
 {

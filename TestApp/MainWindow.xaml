@@ -4,7 +4,7 @@
         xmlns:timeline="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
         Title="Timeline Test App" Height="450" Width="800">
     <Grid>
-        <timeline:Timeline x:Name="myTimeline" Margin="20"
+        <timeline:Timeline x:Name="myTimeline" Margin="10,10,0,0"
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}" />
     </Grid>
 </Window>

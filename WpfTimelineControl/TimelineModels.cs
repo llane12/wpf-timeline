@@ -69,6 +69,10 @@ namespace WpfTimelineControl
         public int ColorIndex { get; }
     }
 
+    /// <summary>
+    /// Sometimes events are short (or the timeframe in which they took place is very long) so it is better to represent them
+    /// as a point in time rather than a bar with a duration.
+    /// </summary>
     public class TimelinePoint : TimelineEntry
     {
         public TimelinePoint(string name, DateTime point, int colorIndex)
@@ -90,22 +94,5 @@ namespace WpfTimelineControl
         }
 
         public int ColorIndex { get; }
-    }
-
-    public class TimelineIntervalMarker : TimelineElement
-    {
-        public TimelineIntervalMarker(DateTime start, TimeSpan duration, string name, bool first)
-            : base(name, start, duration)
-        {
-            First = first;
-        }
-
-        public TimelineIntervalMarker(DateTime start, DateTime end, string name, bool first)
-            : base(name, start, end)
-        {
-            First = first;
-        }
-
-        public bool First { get; private set; }
     }
 }
