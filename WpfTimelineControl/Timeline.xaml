@@ -12,14 +12,14 @@
         
         <SolidColorBrush x:Key="majorIntervalBrush" Color="#BDBDBD" />
         <SolidColorBrush x:Key="minorIntervalBrush" Color="#E1E1E1" />
-        <SolidColorBrush x:Key="labelBrush" Color="#FF444444" />
+        <SolidColorBrush x:Key="labelBrush" Color="#FF1B1B1B" />
         
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" True="Visible" False="Collapsed" />
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityInvertedConverter" True="Collapsed" False="Visible" />
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenConverter" True="Visible" False="Hidden" />
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenInvertedConverter" True="Hidden" False="Visible" />
 
-        <SolidColorBrush x:Key="Button.Foreground" Color="#FF444444" />
+        <SolidColorBrush x:Key="Button.Foreground" Color="#FFAFAFAF" />
         <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF5EA4E0" />
         <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#FF005CAB" />
 
