@@ -69,19 +69,16 @@
 
                 <CheckBox Grid.Column="0" IsChecked="{Binding Path=LabelsExceedBars,ElementName=timelineControl}" VerticalAlignment="Center">
                     <Grid>
-                        <Grid.Resources>
-                            <sys:Int32 x:Key="colourIndex">0</sys:Int32>
-                        </Grid.Resources>
                         <Border BorderThickness="2,1" Width="20" HorizontalAlignment="Left">
                             <Border.BorderBrush>
                                 <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
-                                    <Binding Source="{StaticResource colourIndex}" />
+                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
                                     <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                 </MultiBinding>
                             </Border.BorderBrush>
                             <Border.Background>
                                 <MultiBinding Converter="{StaticResource timelineBackgroundConverter}">
-                                    <Binding Source="{StaticResource colourIndex}" />
+                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
                                     <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                 </MultiBinding>
                             </Border.Background>
@@ -89,7 +86,7 @@
                         <TextBlock Text="{Binding Path=NameLabel,ElementName=timelineControl,FallbackValue='Name'}" Margin="2,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left">
                             <TextBlock.Foreground>
                                 <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
-                                    <Binding Source="{StaticResource colourIndex}" />
+                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
                                     <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                 </MultiBinding>
                             </TextBlock.Foreground>

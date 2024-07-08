@@ -6,6 +6,11 @@ namespace WpfTimelineControl
 {
     public partial class Timeline
     {
+        private static readonly SolidColorBrush[] defaultBrushes = new SolidColorBrush[]
+        {
+            Brushes.Red, Brushes.Green, Brushes.Blue, Brushes.Yellow, Brushes.Magenta,
+        };
+
         public Timeline()
         {
             InitializeComponent();
@@ -26,6 +31,12 @@ namespace WpfTimelineControl
             set { SetValue(NameLabelProperty, value); }
         }
 
+        public int LabelsExceedBarsSettingColorIndex
+        {
+            get { return (int)GetValue(LabelsExceedBarsSettingColorIndexProperty); }
+            set { SetValue(LabelsExceedBarsSettingColorIndexProperty, value); }
+        }
+
         protected bool LabelsExceedBars
         {
             get { return (bool)GetValue(LabelsExceedBarsProperty); }
@@ -35,13 +46,20 @@ namespace WpfTimelineControl
         public static readonly DependencyProperty TimelineEntryBrushesProperty = DependencyProperty.Register(
                 "TimelineEntryBrushes",
                 typeof(SolidColorBrush[]),
-                typeof(Timeline));
+                typeof(Timeline),
+                new PropertyMetadata(defaultBrushes));
 
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
                 "NameLabel",
                 typeof(string),
                 typeof(Timeline),
                 new PropertyMetadata("Name"));
+
+        protected static readonly DependencyProperty LabelsExceedBarsSettingColorIndexProperty = DependencyProperty.Register(
+                "LabelsExceedBarsSettingColorIndex",
+                typeof(int),
+                typeof(Timeline),
+                new PropertyMetadata(0));
 
         protected static readonly DependencyProperty LabelsExceedBarsProperty = DependencyProperty.Register(
                 "LabelsExceedBars",
