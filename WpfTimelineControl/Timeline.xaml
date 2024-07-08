@@ -15,25 +15,26 @@
         <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
         <local:BooleanToVisibilityConverter x:Key="boolToVisibilityInvertedConverter" True="Collapsed" False="Visible" />
 
+        <SolidColorBrush x:Key="Button.Foreground" Color="#FF444444" />
+        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF5EA4E0" />
+        <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#FF005CAB" />
+
         <Style x:Key="PlainButton" TargetType="Button">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border x:Name="border" BorderThickness="0" Background="Transparent" SnapsToDevicePixels="True">
-                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        <Border x:Name="border" Background="Transparent" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="Button.IsDefaulted" Value="True">
-                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#FF5EA4E0"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Foreground}" />
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Foreground" Value="#FF005CAB"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Foreground}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.5"/>
+                                <Setter Property="Opacity" Value="0.5" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -98,14 +99,14 @@
                     <Button Command="{Binding Path=MajorIntervalSecondsDecreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}">
                         <Viewbox Width="18">
                             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <Path Fill="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=Button}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
                         </Viewbox>
                     </Button>
                     <TextBlock Text="{Binding Path=MajorIntervalString}" Foreground="{StaticResource labelBrush}" Margin="8,0,0,0" VerticalAlignment="Center" />
                     <Button Command="{Binding Path=MajorIntervalSecondsIncreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}" Margin="8,0,0,0">
                         <Viewbox Width="18">
                             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <Path Fill="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=Button}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
                         </Viewbox>
                     </Button>
                 </StackPanel>
@@ -114,13 +115,13 @@
                     <Button Command="{Binding Path=PixelsPerIntervalDecreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}">
                         <Viewbox Width="20">
                             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <Path Fill="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=Button}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM136 184c-13.3 0-24 10.7-24 24s10.7 24 24 24H280c13.3 0 24-10.7 24-24s-10.7-24-24-24H136z" />
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM136 184c-13.3 0-24 10.7-24 24s10.7 24 24 24H280c13.3 0 24-10.7 24-24s-10.7-24-24-24H136z" />
                         </Viewbox>
                     </Button>
                     <Button Command="{Binding Path=PixelsPerIntervalIncreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}" Margin="10,0,0,0">
                         <Viewbox Width="20">
                             <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                            <Path Fill="{Binding Path=Foreground,RelativeSource={RelativeSource AncestorType=Button}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM184 296c0 13.3 10.7 24 24 24s24-10.7 24-24V232h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H232V120c0-13.3-10.7-24-24-24s-24 10.7-24 24v64H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h64v64z" />
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM184 296c0 13.3 10.7 24 24 24s24-10.7 24-24V232h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H232V120c0-13.3-10.7-24-24-24s-24 10.7-24 24v64H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h64v64z" />
                         </Viewbox>
                     </Button>
                 </StackPanel>
