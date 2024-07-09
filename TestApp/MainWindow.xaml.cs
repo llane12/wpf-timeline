@@ -15,7 +15,7 @@ namespace TestApp
             var month = yesterday.Month;
             var day = yesterday.Day;
 
-            List<TimelineElement> entries = new List<TimelineElement>
+            List<TimelineEntry> entries = new List<TimelineEntry>
             {
                 new TimelineBar("Event 1", new DateTime(year, month, day, 8, 6, 14), TimeSpan.FromSeconds(328), 0),
                 new TimelineBar("Event 2", new DateTime(year, month, day, 8, 6, 20), TimeSpan.FromSeconds(944), 1),

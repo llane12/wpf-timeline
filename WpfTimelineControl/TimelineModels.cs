@@ -2,6 +2,9 @@
 
 namespace WpfTimelineControl
 {
+    /// <summary>
+    /// Base class for the timeline entries (bars and points) and interval markers
+    /// </summary>
     public abstract class TimelineElement
     {
         public TimelineElement(string name, DateTime start, TimeSpan duration)
@@ -70,8 +73,8 @@ namespace WpfTimelineControl
     }
 
     /// <summary>
-    /// Sometimes events are short (or the timeframe in which they took place is very long) so it is better to represent them
-    /// as a point in time rather than a bar with a duration.
+    /// Sometimes events are short and look very small on a timeline where their width represents the duration,
+    /// so it is better to represent them as a point in time with a fixed-width shape.
     /// </summary>
     public class TimelinePoint : TimelineEntry
     {
@@ -94,5 +97,25 @@ namespace WpfTimelineControl
         }
 
         public int ColorIndex { get; }
+    }
+
+    /// <summary>
+    /// Used to represent the intervals and vertical bars across the timeline as well as the Days above the timeline 
+    /// </summary>
+    public class TimelineIntervalMarker : TimelineElement
+    {
+        public TimelineIntervalMarker(DateTime start, TimeSpan duration, string name, bool first)
+            : base(name, start, duration)
+        {
+            First = first;
+        }
+
+        public TimelineIntervalMarker(DateTime start, DateTime end, string name, bool first)
+            : base(name, start, end)
+        {
+            First = first;
+        }
+
+        public bool First { get; private set; }
     }
 }

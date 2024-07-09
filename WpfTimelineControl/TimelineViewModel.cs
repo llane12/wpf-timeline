@@ -26,7 +26,7 @@ namespace WpfTimelineControl
 
         public ObservableCollection<TimelineIntervalMarker> DateMarkers { get; } = new ObservableCollection<TimelineIntervalMarker>();
         public ObservableCollection<TimelineIntervalMarker> IntervalMarkers { get; } = new ObservableCollection<TimelineIntervalMarker>();
-        public ObservableCollection<TimelineElement> Elements { get; } = new ObservableCollection<TimelineElement>();
+        public ObservableCollection<TimelineEntry> Entries { get; } = new ObservableCollection<TimelineEntry>();
 
         public string Title
         {
@@ -153,25 +153,5 @@ namespace WpfTimelineControl
 
             return currentIndex < (options.Count - 1);
         }
-    }
-
-    /// <summary>
-    /// Used to represent the intervals and vertical bars across the timeline as well as the Days above the timeline 
-    /// </summary>
-    public class TimelineIntervalMarker : TimelineElement
-    {
-        public TimelineIntervalMarker(DateTime start, TimeSpan duration, string name, bool first)
-            : base(name, start, duration)
-        {
-            First = first;
-        }
-
-        public TimelineIntervalMarker(DateTime start, DateTime end, string name, bool first)
-            : base(name, start, end)
-        {
-            First = first;
-        }
-
-        public bool First { get; private set; }
     }
 }

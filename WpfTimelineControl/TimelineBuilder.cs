@@ -6,7 +6,7 @@ namespace WpfTimelineControl
 {
     public interface ITimelineBuilder
     {
-        TimelineViewModel BuildViewModel(params TimelineElement[] timelineEntries);
+        TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries);
     }
 
     public static class TimelineBuilderFactory
@@ -19,7 +19,13 @@ namespace WpfTimelineControl
 
     internal class TimelineBuilder : ITimelineBuilder
     {
-        public TimelineViewModel BuildViewModel(params TimelineElement[] timelineEntries)
+        /// <summary>
+        /// Builds a <see cref="TimelineViewModel"/> from a colllection of <see cref="TimelineEntry"/>.
+        /// These can be <see cref="TimelineBar"/> or <see cref="TimelinePoint"/>.
+        /// </summary>
+        /// <param name="timelineEntries">Must be sorted</param>
+        /// <exception cref="ArgumentNullException"><paramref name="timelineEntries"/> cannot be null</exception>
+        public TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries)
         {
             if (timelineEntries == null) throw new ArgumentNullException(nameof(timelineEntries));
 
@@ -27,10 +33,10 @@ namespace WpfTimelineControl
 
             foreach (var entry in timelineEntries.OrderBy(t => t.Start))
             {
-                viewModel.Elements.Add(entry);
+                viewModel.Entries.Add(entry);
             }
 
-            if (viewModel.Elements.Count == 0) return viewModel;
+            if (viewModel.Entries.Count == 0) return viewModel;
 
             RecalculateMajorInterval(viewModel);
             RebuildIntervalMarkers(viewModel);
@@ -80,7 +86,7 @@ namespace WpfTimelineControl
         {
             viewModel.IntervalMarkers.Clear();
 
-            DateTime start = viewModel.Elements.First().Start; // assume entries are sorted
+            DateTime start = viewModel.Entries.First().Start; // assume entries are sorted
 
             DateTime position = start.Date; // start at the beginning of the day
 
@@ -96,7 +102,7 @@ namespace WpfTimelineControl
             viewModel.SetStart(position);
 
             // keep adding until the last interval is just before the latest entry
-            DateTime latestEnd = viewModel.Elements.Max(e => e.End);
+            DateTime latestEnd = viewModel.Entries.Max(e => e.End);
             while (position + interval <= latestEnd)
             {
                 position += interval;

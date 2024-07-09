@@ -258,8 +258,8 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <!--Timeline elements-->
-                <ItemsControl ItemsSource="{Binding Path=Elements}">
+                <!--Timeline entries-->
+                <ItemsControl ItemsSource="{Binding Path=Entries}">
                     <ItemsControl.Resources>
                         <sys:Int32 x:Key="pointWidth">20</sys:Int32>
                     </ItemsControl.Resources>
