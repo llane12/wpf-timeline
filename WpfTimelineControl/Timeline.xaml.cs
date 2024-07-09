@@ -31,6 +31,24 @@ namespace WpfTimelineControl
             set { SetValue(NameLabelProperty, value); }
         }
 
+        /// <summary>
+        /// Support for translation
+        /// </summary>
+        public string StartLabel
+        {
+            get { return (string)GetValue(StartLabelProperty); }
+            set { SetValue(StartLabelProperty, value); }
+        }
+
+        /// <summary>
+        /// Support for translation
+        /// </summary>
+        public string EndLabel
+        {
+            get { return (string)GetValue(EndLabelProperty); }
+            set { SetValue(EndLabelProperty, value); }
+        }
+
         public int LabelsExceedBarsSettingColorIndex
         {
             get { return (int)GetValue(LabelsExceedBarsSettingColorIndexProperty); }
@@ -54,6 +72,18 @@ namespace WpfTimelineControl
                 typeof(string),
                 typeof(Timeline),
                 new PropertyMetadata("Name"));
+
+        public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
+            "StartLabel",
+            typeof(string),
+            typeof(Timeline),
+            new PropertyMetadata("Start"));
+
+        public static readonly DependencyProperty EndLabelProperty = DependencyProperty.Register(
+            "EndLabel",
+            typeof(string),
+            typeof(Timeline),
+            new PropertyMetadata("End"));
 
         protected static readonly DependencyProperty LabelsExceedBarsSettingColorIndexProperty = DependencyProperty.Register(
                 "LabelsExceedBarsSettingColorIndex",

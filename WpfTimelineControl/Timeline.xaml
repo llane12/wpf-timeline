@@ -299,8 +299,8 @@
                                                     <RowDefinition />
                                                 </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Start:" />
-                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="End:" />
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=StartLabel,ElementName=timelineControl,FallbackValue='Start:'}" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=EndLabel,ElementName=timelineControl,FallbackValue='End:'}" />
                                                 <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Start,StringFormat=d}" />
                                                 <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=End,StringFormat=d}" />
                                                 <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Path=Start,StringFormat='{}{0:HH:mm:ss}'}" />
