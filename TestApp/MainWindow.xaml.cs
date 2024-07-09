@@ -27,13 +27,14 @@ namespace TestApp
                 new TimelinePoint("Event 8", new DateTime(year, month, day, 11, 44, 53), TimeSpan.FromSeconds(161), 0),
                 new TimelinePoint("Event 9", new DateTime(year, month, day, 12, 00, 14), TimeSpan.FromSeconds(85), 1),
                 new TimelineBar("Event 10", new DateTime(year, month, day, 12, 58, 9), TimeSpan.FromSeconds(1112), 2),
-                new TimelineBar("Event 11", new DateTime(year, month, day, 13, 49, 44), TimeSpan.FromSeconds(903), 3),
+                new TimelineBar("Event 11", new DateTime(year, month, day, 13, 49, 44), TimeSpan.FromSeconds(843), 3),
                 new TimelineBar("Event 12", new DateTime(year, month, day, 14, 37, 32), TimeSpan.FromSeconds(2440), 4)
             };
 
             var timelineBuilder = TimelineBuilderFactory.Create();
 
             var viewModel = timelineBuilder.BuildViewModel(entries.ToArray());
+            viewModel.Title = "Timeline Demo";
             viewModel.PixelsPerInterval = 160;
 
             myTimeline.DataContext = viewModel;
