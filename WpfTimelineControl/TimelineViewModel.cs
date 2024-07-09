@@ -69,8 +69,7 @@ namespace WpfTimelineControl
             set
             {
                 majorIntervalSeconds = value;
-                TimelineBuilder.RebuildIntervalMarkers(this);
-                TimelineBuilder.RebuildDateMarkers(this);
+                TimelineBuilder.RebuildMarkers(this);
 
                 NotifyPropertyChanged();
                 NotifyPropertyChanged(nameof(Start));
