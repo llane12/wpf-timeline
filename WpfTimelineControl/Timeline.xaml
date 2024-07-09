@@ -279,7 +279,13 @@
                                 <Grid.ToolTip>
                                     <ToolTip FontSize="14">
                                         <StackPanel>
-                                            <TextBlock Text="{Binding Path=Name}" />
+                                            <TextBlock Text="{Binding Path=Name}" Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityInvertedConverter}}" />
+                                            <TextBlock Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityConverter}}">
+                                                <Run Text="{Binding Path=Name,Mode=OneWay}" />
+                                                <Run Text=" (" />
+                                                <Run Text="{Binding Path=Duration,Mode=OneWay}" />
+                                                <Run Text=")" />
+                                            </TextBlock>
                                             <Grid Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityConverter}}">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
