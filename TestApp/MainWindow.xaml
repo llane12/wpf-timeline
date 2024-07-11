@@ -6,6 +6,7 @@
     <Grid>
         <timeline:Timeline x:Name="myTimeline" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}"
+                           LabelsExceedBarsSettingColorIndex="2"
                            ColoredEntryNameLabels="True" />
     </Grid>
 </Window>
