@@ -62,37 +62,37 @@ namespace WpfTimelineControl
         }
 
         public static readonly DependencyProperty TimelineEntryBrushesProperty = DependencyProperty.Register(
-                "TimelineEntryBrushes",
+                nameof(TimelineEntryBrushes),
                 typeof(SolidColorBrush[]),
                 typeof(Timeline),
                 new PropertyMetadata(defaultBrushes));
 
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
-                "NameLabel",
+                nameof(NameLabel),
                 typeof(string),
                 typeof(Timeline),
                 new PropertyMetadata("Name"));
 
         public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
-            "StartLabel",
+                nameof(StartLabel),
             typeof(string),
             typeof(Timeline),
             new PropertyMetadata("Start"));
 
         public static readonly DependencyProperty EndLabelProperty = DependencyProperty.Register(
-            "EndLabel",
+                nameof(EndLabel),
             typeof(string),
             typeof(Timeline),
             new PropertyMetadata("End"));
 
         protected static readonly DependencyProperty LabelsExceedBarsSettingColorIndexProperty = DependencyProperty.Register(
-                "LabelsExceedBarsSettingColorIndex",
+                nameof(LabelsExceedBarsSettingColorIndex),
                 typeof(int),
                 typeof(Timeline),
                 new PropertyMetadata(0));
 
         protected static readonly DependencyProperty LabelsExceedBarsProperty = DependencyProperty.Register(
-                "LabelsExceedBars",
+                nameof(LabelsExceedBars),
                 typeof(bool),
                 typeof(Timeline),
                 new PropertyMetadata(true));
