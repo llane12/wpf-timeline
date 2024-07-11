@@ -108,10 +108,5 @@ namespace WpfTimelineControl
                 typeof(bool),
                 typeof(Timeline),
                 new PropertyMetadata(true));
-
-        private void ScrollChanged(object sender, ScrollChangedEventArgs e)
-        {
-            svLabels.ScrollToHorizontalOffset(e.HorizontalOffset);
-        }
     }
 }
