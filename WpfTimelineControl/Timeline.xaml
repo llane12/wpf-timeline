@@ -60,7 +60,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontSize="16" Visibility="{Binding Path=ShowTitle,Converter={StaticResource boolToVisibilityConverter}}" />
+            <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontSize="16" Margin="5,0" Visibility="{Binding Path=ShowTitle,Converter={StaticResource boolToVisibilityConverter}}" />
 
             <Grid Grid.Column="1" Visibility="{Binding Path=ShowControls,Converter={StaticResource boolToVisibilityConverter}}">
                 <Grid.ColumnDefinitions>
