@@ -54,4 +54,26 @@ namespace WpfTimelineControl
             throw new NotImplementedException();
         }
     }
+
+    public class TimelineEntryTextColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            try
+            {
+                int colorIndex = (int)values[0];
+                SolidColorBrush[] brushes = (SolidColorBrush[])values[1];
+                SolidColorBrush defaultBrush = (SolidColorBrush)values[2];
+                bool useColoredBrush = (bool)values[3];
+
+                return useColoredBrush ? brushes[colorIndex] : defaultBrush;
+            }
+            catch { return Brushes.Black; }
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

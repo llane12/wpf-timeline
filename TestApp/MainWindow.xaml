@@ -5,6 +5,7 @@
         Title="Timeline Test App" Height="450" Width="800">
     <Grid>
         <timeline:Timeline x:Name="myTimeline" Margin="10,10,0,0"
-                           TimelineEntryBrushes="{StaticResource TimelineItemColors}" />
+                           TimelineEntryBrushes="{StaticResource TimelineItemColors}"
+                           ColoredEntryNameLabels="True" />
     </Grid>
 </Window>

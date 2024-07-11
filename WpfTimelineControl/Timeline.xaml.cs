@@ -22,6 +22,12 @@ namespace WpfTimelineControl
             set => SetValue(TimelineEntryBrushesProperty, value);
         }
 
+        public bool ColoredEntryNameLabels
+        {
+            get { return (bool)GetValue(ColoredEntryNameLabelsProperty); }
+            set { SetValue(ColoredEntryNameLabelsProperty, value); }
+        }
+
         /// <summary>
         /// Support for translation
         /// </summary>
@@ -67,6 +73,12 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(defaultBrushes));
 
+        public static readonly DependencyProperty ColoredEntryNameLabelsProperty = DependencyProperty.Register(
+                nameof(ColoredEntryNameLabels),
+                typeof(bool),
+                typeof(Timeline),
+                new PropertyMetadata(true));
+
         public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
                 nameof(NameLabel),
                 typeof(string),
@@ -75,15 +87,15 @@ namespace WpfTimelineControl
 
         public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
                 nameof(StartLabel),
-            typeof(string),
-            typeof(Timeline),
-            new PropertyMetadata("Start"));
+                typeof(string),
+                typeof(Timeline),
+                new PropertyMetadata("Start"));
 
         public static readonly DependencyProperty EndLabelProperty = DependencyProperty.Register(
                 nameof(EndLabel),
-            typeof(string),
-            typeof(Timeline),
-            new PropertyMetadata("End"));
+                typeof(string),
+                typeof(Timeline),
+                new PropertyMetadata("End"));
 
         protected static readonly DependencyProperty LabelsExceedBarsSettingColorIndexProperty = DependencyProperty.Register(
                 nameof(LabelsExceedBarsSettingColorIndex),
