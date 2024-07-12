@@ -5,7 +5,7 @@ namespace WpfTimelineControl
     /// <summary>
     /// Base class for the timeline entries (bars and points) and interval markers
     /// </summary>
-    public abstract class TimelineElement
+    public abstract class TimelineElement : ViewModelBase
     {
         public TimelineElement(string name, DateTime start, TimeSpan duration)
             : this(name, start, start + duration, duration)
@@ -40,6 +40,9 @@ namespace WpfTimelineControl
 
     public abstract class TimelineEntry : TimelineElement
     {
+        private string startLabel;
+        private string endLabel;
+
         public TimelineEntry(string name, DateTime start, TimeSpan duration, TimelineEntryType entryType)
             : base(name, start, duration)
         {
@@ -53,6 +56,18 @@ namespace WpfTimelineControl
         }
 
         public TimelineEntryType EntryType { get; }
+
+        /// <summary>
+        /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
+        /// which are not part of the same visual tree so cannot access the dependency property.
+        /// </summary>
+        public string StartLabel { get => startLabel; internal set { startLabel = value; NotifyPropertyChanged(); } }
+
+        /// <summary>
+        /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
+        /// which are not part of the same visual tree so cannot access the dependency property.
+        /// </summary>
+        public string EndLabel { get => endLabel; internal set { endLabel = value; NotifyPropertyChanged(); } }
     }
 
     public class TimelineBar : TimelineEntry

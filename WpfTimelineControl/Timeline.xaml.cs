@@ -31,10 +31,10 @@ namespace WpfTimelineControl
         /// <summary>
         /// Support for translation
         /// </summary>
-        public string NameLabel
+        public string EventLabel
         {
-            get { return (string)GetValue(NameLabelProperty); }
-            set { SetValue(NameLabelProperty, value); }
+            get { return (string)GetValue(EventLabelProperty); }
+            set { SetValue(EventLabelProperty, value); }
         }
 
         /// <summary>
@@ -79,11 +79,11 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(true));
 
-        public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
-                nameof(NameLabel),
+        public static readonly DependencyProperty EventLabelProperty = DependencyProperty.Register(
+                nameof(EventLabel),
                 typeof(string),
                 typeof(Timeline),
-                new PropertyMetadata("Name"));
+                new PropertyMetadata("Event"));
 
         public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
                 nameof(StartLabel),
@@ -108,5 +108,14 @@ namespace WpfTimelineControl
                 typeof(bool),
                 typeof(Timeline),
                 new PropertyMetadata(true));
+
+        private void ToolTip_Opened(object sender, RoutedEventArgs e)
+        {
+            var toolTip = sender as ToolTip;
+            var timelineEntry = toolTip.DataContext as TimelineEntry;
+
+            timelineEntry.StartLabel = StartLabel;
+            timelineEntry.EndLabel = EndLabel;
+        }
     }
 }
