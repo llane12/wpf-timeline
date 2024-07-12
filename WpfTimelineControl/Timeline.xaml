@@ -92,7 +92,7 @@
                                 <TextBlock Text="{Binding Path=EventLabel,ElementName=timelineControl}" FontSize="14" Margin="0,-1">
                                     <TextBlock.Foreground>
                                         <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
-                                            <Binding Path="ColorIndex" />
+                                            <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
                                             <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                             <Binding Source="{StaticResource labelBrush}" />
                                             <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
