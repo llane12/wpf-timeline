@@ -1,0 +1,9 @@
+﻿<Window x:Class="TestApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:timeline="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
+        Title="Timeline Test App" Height="450" Width="800">
+    <Grid>
+        <timeline:Timeline x:Name="myTimeline" Margin="20" />
+    </Grid>
+</Window>
