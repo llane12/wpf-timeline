@@ -59,13 +59,13 @@ namespace WpfTimelineControl
 
         /// <summary>
         /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
-        /// which are not part of the same visual tree so cannot access the dependency property.
+        /// which are not part of the same visual tree so cannot access the dependency propertyies.
         /// </summary>
         public string StartLabel { get => startLabel; internal set { startLabel = value; NotifyPropertyChanged(); } }
 
         /// <summary>
         /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
-        /// which are not part of the same visual tree so cannot access the dependency property.
+        /// which are not part of the same visual tree so cannot access the dependency properties.
         /// </summary>
         public string EndLabel { get => endLabel; internal set { endLabel = value; NotifyPropertyChanged(); } }
     }

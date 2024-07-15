@@ -23,7 +23,6 @@ namespace WpfTimelineControl
         /// Builds a <see cref="TimelineViewModel"/> from a colllection of <see cref="TimelineEntry"/>.
         /// These can be <see cref="TimelineBar"/> or <see cref="TimelinePoint"/>.
         /// </summary>
-        /// <param name="timelineEntries">Must be sorted</param>
         /// <exception cref="ArgumentNullException"><paramref name="timelineEntries"/> cannot be null</exception>
         public TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries)
         {

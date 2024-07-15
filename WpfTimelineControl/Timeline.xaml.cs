@@ -109,6 +109,10 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(true));
 
+        /// <summary>
+        /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
+        /// which are not part of the same visual tree so cannot access the dependency properties.
+        /// </summary>
         private void ToolTip_Opened(object sender, RoutedEventArgs e)
         {
             var toolTip = sender as ToolTip;
