@@ -6,7 +6,7 @@ namespace WpfTimelineControl
 {
     public partial class Timeline
     {
-        private static readonly SolidColorBrush[] defaultBrushes = new SolidColorBrush[]
+        private static readonly Brush[] defaultBrushes = new SolidColorBrush[]
         {
             Brushes.Red, Brushes.Green, Brushes.Blue, Brushes.Yellow, Brushes.Magenta,
         };
@@ -16,9 +16,9 @@ namespace WpfTimelineControl
             InitializeComponent();
         }
 
-        public SolidColorBrush[] TimelineEntryBrushes
+        public Brush[] TimelineEntryBrushes
         {
-            get => (SolidColorBrush[])GetValue(TimelineEntryBrushesProperty);
+            get => (Brush[])GetValue(TimelineEntryBrushesProperty);
             set => SetValue(TimelineEntryBrushesProperty, value);
         }
 
@@ -61,7 +61,7 @@ namespace WpfTimelineControl
             set { SetValue(LabelsExceedBarsSettingColorIndexProperty, value); }
         }
 
-        protected bool LabelsExceedBars
+        public bool LabelsExceedBars
         {
             get { return (bool)GetValue(LabelsExceedBarsProperty); }
             set { SetValue(LabelsExceedBarsProperty, value); }

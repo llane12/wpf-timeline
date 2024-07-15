@@ -11,6 +11,6 @@
         /// The interval options available to select from, based on the total duration of the events on the timeline.
         /// Unit is seconds.
         /// </summary>
-        public static readonly int[] IntervalOptions = new int[] { 10, 30, 60, 300, 600, 1800, 3600 };
+        public static int[] IntervalOptions = new int[] { 10, 30, 60, 300, 600, 1800, 3600 };
     }
 }
