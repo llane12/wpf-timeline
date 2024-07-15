@@ -116,7 +116,7 @@ namespace WpfTimelineControl
         {
             if (!MajorIntervalSecondsCanDecrease()) { return; }
 
-            List<int> options = TimelineConstants.MajorIntervalOptions.ToList();
+            List<int> options = TimelineConstants.IntervalOptions.ToList();
 
             int currentIndex = options.IndexOf(majorIntervalSeconds);
 
@@ -129,7 +129,7 @@ namespace WpfTimelineControl
         {
             if (!MajorIntervalSecondsCanIncrease()) { return; }
 
-            List<int> options = TimelineConstants.MajorIntervalOptions.ToList();
+            List<int> options = TimelineConstants.IntervalOptions.ToList();
 
             int currentIndex = options.IndexOf(majorIntervalSeconds);
 
@@ -140,14 +140,14 @@ namespace WpfTimelineControl
 
         private bool MajorIntervalSecondsCanDecrease()
         {
-            List<int> options = TimelineConstants.MajorIntervalOptions.ToList();
+            List<int> options = TimelineConstants.IntervalOptions.ToList();
 
             return options.IndexOf(majorIntervalSeconds) > 0;
         }
 
         private bool MajorIntervalSecondsCanIncrease()
         {
-            List<int> options = TimelineConstants.MajorIntervalOptions.ToList();
+            List<int> options = TimelineConstants.IntervalOptions.ToList();
 
             int currentIndex = options.IndexOf(majorIntervalSeconds);
 
