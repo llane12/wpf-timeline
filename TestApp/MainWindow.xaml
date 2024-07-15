@@ -6,9 +6,9 @@
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="TestApp"
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
-        Title="Timeline Test App" Height="450" Width="800">
+        Title="Timeline Test App" SizeToContent="WidthAndHeight">
     <Grid>
-        <timeline:Timeline x:Name="myTimeline" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"
+        <timeline:Timeline x:Name="myTimeline" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}"
                            LabelsExceedBarsSettingColorIndex="2"
                            ColoredEntryNameLabels="True"
