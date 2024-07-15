@@ -2,119 +2,415 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfTimelineControl"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              x:Name="timelineControl">
     <UserControl.Resources>
         <local:TimelineElementMarginConverter x:Key="timelineMarginConverter" />
         <local:TimelineElementWidthConverter x:Key="timelineWidthConverter" />
+        <local:TimelineEntryForegroundConverter x:Key="timelineForegroundConverter" />
+        <local:TimelineEntryBackgroundConverter x:Key="timelineBackgroundConverter" />
+        <local:TimelineEntryTextColorConverter x:Key="timelineTextColourConverter" />
+
         <SolidColorBrush x:Key="majorIntervalBrush" Color="#BDBDBD" />
         <SolidColorBrush x:Key="minorIntervalBrush" Color="#E1E1E1" />
-        <BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" />
+        <SolidColorBrush x:Key="labelBrush" Color="#FF1B1B1B" />
+        
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityConverter" True="Visible" False="Collapsed" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityInvertedConverter" True="Collapsed" False="Visible" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenConverter" True="Visible" False="Hidden" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibilityHiddenInvertedConverter" True="Hidden" False="Visible" />
+
+        <SolidColorBrush x:Key="Button.Foreground" Color="#FFAFAFAF" />
+        <SolidColorBrush x:Key="Button.MouseOver.Foreground" Color="#FF5EA4E0" />
+        <SolidColorBrush x:Key="Button.Pressed.Foreground" Color="#FF005CAB" />
+
+        <Style x:Key="PlainButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="Transparent" BorderThickness="0" BorderBrush="{TemplateBinding BorderBrush}" SnapsToDevicePixels="True">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Foreground}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <Grid HorizontalAlignment="Left" VerticalAlignment="Top">
-            <ItemsControl ItemsSource="{Binding Path=TimelineData.IntervalMarkers}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid VerticalAlignment="Stretch">
-                            <Grid.Width>
-                                <MultiBinding Converter="{StaticResource timelineWidthConverter}">
-                                    <Binding Path="Duration" />
-                                    <Binding Path="DataContext.TimelineData.MajorIntervalMinutes" ElementName="timelineControl" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Visibility="{Binding Path=ShowTopBar,Converter={StaticResource boolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="{Binding Path=Title}" FontSize="16" Margin="5,0" Visibility="{Binding Path=ShowTitle,Converter={StaticResource boolToVisibilityConverter}}" />
+
+            <Grid Grid.Column="1" Visibility="{Binding Path=ShowControls,Converter={StaticResource boolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+
+                <CheckBox Grid.Column="0" IsChecked="{Binding Path=LabelsExceedBars,ElementName=timelineControl}" VerticalAlignment="Center">
+                    <Grid>
+                        <Border HorizontalAlignment="Left" BorderThickness="2,1" Width="20" SnapsToDevicePixels="True">
+                            <Border.BorderBrush>
+                                <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
+                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                    <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
                                 </MultiBinding>
-                            </Grid.Width>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <MultiBinding Converter="{StaticResource timelineBackgroundConverter}">
+                                    <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                    <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                </MultiBinding>
+                            </Border.Background>
 
-                            <Grid.RowDefinitions>
-                                <!--<RowDefinition Height="28" /> Reserved for date labels-->
-                                <RowDefinition Height="28" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1" />
-                                <ColumnDefinition />
-                                <ColumnDefinition Width="1" />
-                            </Grid.ColumnDefinitions>
+                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityHiddenInvertedConverter}}">
+                                <TextBlock Text="{Binding Path=EventLabel,ElementName=timelineControl}" FontSize="14" Margin="0,-1">
+                                    <TextBlock.Foreground>
+                                        <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
+                                            <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                            <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                            <Binding Source="{StaticResource labelBrush}" />
+                                            <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
+                                        </MultiBinding>
+                                    </TextBlock.Foreground>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
 
-                            <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" Visibility="{Binding Path=First,Converter={StaticResource boolToVisibilityConverter}}" />
-                            <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource majorIntervalBrush}" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                            <Border Grid.Row="0" Grid.Column="2" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" />
-
-                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" />
-
-                            <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource majorIntervalBrush}" Width="1" Visibility="{Binding Path=First,Converter={StaticResource boolToVisibilityConverter}}" />
-                            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource minorIntervalBrush}" Width="1" HorizontalAlignment="Center" />
-                            <Border Grid.Row="1" Grid.Column="2" Background="{StaticResource majorIntervalBrush}" Width="1" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <ItemsControl ItemsSource="{Binding Path=TimelineData.Entries}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Margin="0,28,0,0" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,5,0,0" HorizontalAlignment="Left">
-                            <Grid.ToolTip>
-                                <ToolTip FontSize="14">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="5" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="5" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Text="{Binding Path=Name}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Start:" />
-                                        <TextBlock Grid.Row="2" Grid.Column="0" Text="End:" />
-                                        <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=Start,StringFormat=d}" />
-                                        <TextBlock Grid.Row="2" Grid.Column="2" Text="{Binding Path=End,StringFormat=d}" />
-                                        <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Path=Start,StringFormat=T}" />
-                                        <TextBlock Grid.Row="2" Grid.Column="4" Text="{Binding Path=End,StringFormat=T}" />
-                                    </Grid>
-                                </ToolTip>
-                            </Grid.ToolTip>
-
-                            <Border Height="Auto" BorderThickness="2,1" BorderBrush="#D86C00">
-                                <Border.Margin>
-                                    <MultiBinding Converter="{StaticResource timelineMarginConverter}">
-                                        <Binding Path="Start" />
-                                        <Binding Path="DataContext.TimelineData.Start" ElementName="timelineControl" />
-                                        <Binding Path="DataContext.TimelineData.MajorIntervalMinutes" ElementName="timelineControl" />
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityHiddenConverter}}">
+                            <TextBlock Text="{Binding Path=EventLabel,ElementName=timelineControl}" FontSize="14" Margin="2,0,0,0">
+                                <TextBlock.Foreground>
+                                    <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
+                                        <Binding Path="LabelsExceedBarsSettingColorIndex" ElementName="timelineControl" />
+                                        <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                        <Binding Source="{StaticResource labelBrush}" />
+                                        <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
                                     </MultiBinding>
-                                </Border.Margin>
-                                <Border.Width>
+                                </TextBlock.Foreground>
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                </CheckBox>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <Button Command="{Binding Path=MajorIntervalSecondsDecreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}">
+                        <Viewbox Width="18">
+                            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zm88 200H296c13.3 0 24 10.7 24 24s-10.7 24-24 24H152c-13.3 0-24-10.7-24-24s10.7-24 24-24z" />
+                        </Viewbox>
+                    </Button>
+                    <TextBlock Text="{Binding Path=MajorIntervalString}" Foreground="{StaticResource labelBrush}" Margin="8,0,0,0" VerticalAlignment="Center" />
+                    <Button Command="{Binding Path=MajorIntervalSecondsIncreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}" Margin="8,0,0,0">
+                        <Viewbox Width="18">
+                            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64zM200 344V280H136c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H248v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel Grid.Column="4" Orientation="Horizontal">
+                    <Button Command="{Binding Path=PixelsPerIntervalDecreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}">
+                        <Viewbox Width="20">
+                            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM136 184c-13.3 0-24 10.7-24 24s10.7 24 24 24H280c13.3 0 24-10.7 24-24s-10.7-24-24-24H136z" />
+                        </Viewbox>
+                    </Button>
+                    <Button Command="{Binding Path=PixelsPerIntervalIncreaseCommand}" Style="{StaticResource PlainButton}" Foreground="{StaticResource labelBrush}" Margin="10,0,0,0">
+                        <Viewbox Width="20">
+                            <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                            <Path Fill="{Binding Path=BorderBrush,RelativeSource={RelativeSource AncestorType=Border}}" Data="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM184 296c0 13.3 10.7 24 24 24s24-10.7 24-24V232h64c13.3 0 24-10.7 24-24s-10.7-24-24-24H232V120c0-13.3-10.7-24-24-24s-24 10.7-24 24v64H120c-13.3 0-24 10.7-24 24s10.7 24 24 24h64v64z" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <ScrollViewer x:Name="svEntries" Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--Date labels-->
+                <ItemsControl Grid.Row="0" ItemsSource="{Binding Path=DateMarkers}" Visibility="{Binding Path=ShowDateMarkers,Converter={StaticResource boolToVisibilityConverter}}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.Width>
                                     <MultiBinding Converter="{StaticResource timelineWidthConverter}">
                                         <Binding Path="Duration" />
-                                        <Binding Path="DataContext.TimelineData.MajorIntervalMinutes" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.MajorIntervalSeconds" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.PixelsPerInterval" ElementName="timelineControl" />
                                     </MultiBinding>
-                                </Border.Width>
-                                <Grid>
-                                    <Border SnapsToDevicePixels="True" Background="#FBF0E5" BorderThickness="0" ClipToBounds="True" />
-                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding Path=Name}" Foreground="DarkSlateGray" FontSize="14" />
-                                    </Grid>
-                                </Grid>
-                            </Border>
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </Grid>
-    </ScrollViewer>
+                                </Grid.Width>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="1" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}" FontSize="14" Margin="0,3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" Visibility="{Binding Path=First,Converter={StaticResource boolToVisibilityConverter}}" />
+                                <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource majorIntervalBrush}" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                <Border Grid.Row="0" Grid.Column="2" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--Time labels-->
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding Path=IntervalMarkers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.Width>
+                                    <MultiBinding Converter="{StaticResource timelineWidthConverter}">
+                                        <Binding Path="Duration" />
+                                        <Binding Path="DataContext.MajorIntervalSeconds" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.PixelsPerInterval" ElementName="timelineControl" />
+                                    </MultiBinding>
+                                </Grid.Width>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="1" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Name}" FontSize="14" Margin="0,3" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" Visibility="{Binding Path=First,Converter={StaticResource boolToVisibilityConverter}}" />
+                                <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource majorIntervalBrush}" Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
+                                <Border Grid.Row="0" Grid.Column="2" Background="{StaticResource majorIntervalBrush}" Width="1" Height="14" VerticalAlignment="Bottom" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--Interval bars-->
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=IntervalMarkers}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid VerticalAlignment="Stretch">
+                                <Grid.Width>
+                                    <MultiBinding Converter="{StaticResource timelineWidthConverter}">
+                                        <Binding Path="Duration" />
+                                        <Binding Path="DataContext.MajorIntervalSeconds" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.PixelsPerInterval" ElementName="timelineControl" />
+                                    </MultiBinding>
+                                </Grid.Width>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="1" />
+                                </Grid.ColumnDefinitions>
+
+                                <Border Grid.Column="0" Background="{StaticResource majorIntervalBrush}" Width="1" Visibility="{Binding Path=First,Converter={StaticResource boolToVisibilityConverter}}" />
+                                <Border Grid.Column="1" Background="{StaticResource minorIntervalBrush}" Width="1" HorizontalAlignment="Center" />
+                                <Border Grid.Column="2" Background="{StaticResource majorIntervalBrush}" Width="1" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!--Timeline entries-->
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding Path=Entries}">
+                    <ItemsControl.Resources>
+                        <sys:Int32 x:Key="pointWidth">20</sys:Int32>
+                    </ItemsControl.Resources>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid HorizontalAlignment="Left">
+                                <Grid.Margin>
+                                    <MultiBinding Converter="{StaticResource timelineMarginConverter}">
+                                        <Binding Path="Start" />
+                                        <Binding Path="DataContext.Start" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.MajorIntervalSeconds" ElementName="timelineControl" />
+                                        <Binding Path="DataContext.PixelsPerInterval" ElementName="timelineControl" />
+                                        <Binding Path="EntryType" />
+                                        <Binding Source="{StaticResource pointWidth}" />
+                                    </MultiBinding>
+                                </Grid.Margin>
+                                <Grid.ToolTip>
+                                    <ToolTip FontSize="14" Opened="ToolTip_Opened">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding Path=Name}" Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityInvertedConverter}}" />
+                                            <TextBlock Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityConverter}}">
+                                                <Run Text="{Binding Path=Name,Mode=OneWay}" />
+                                                <Run Text=" (" /><Run Text="{Binding Path=Duration,Mode=OneWay}" /><Run Text=")" />
+                                            </TextBlock>
+                                            <Grid Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityConverter}}">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="5" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="5" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition />
+                                                    <RowDefinition />
+                                                </Grid.RowDefinitions>
+
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=StartLabel}" />
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="{Binding Path=EndLabel}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Start,StringFormat=d}" />
+                                                <TextBlock Grid.Row="1" Grid.Column="2" Text="{Binding Path=End,StringFormat=d}" />
+                                                <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Path=Start,StringFormat='{}{0:HH:mm:ss}'}" />
+                                                <TextBlock Grid.Row="1" Grid.Column="4" Text="{Binding Path=End,StringFormat='{}{0:HH:mm:ss}'}" />
+                                            </Grid>
+                                            <StackPanel Orientation="Horizontal" Visibility="{Binding Path=HasDuration,Converter={StaticResource boolToVisibilityInvertedConverter}}">
+                                                <TextBlock Text="{Binding Path=Start,StringFormat=d}" />
+                                                <Grid Width="5" />
+                                                <TextBlock Text="{Binding Path=Start,StringFormat='{}{0:HH:mm:ss}'}" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </ToolTip>
+                                </Grid.ToolTip>
+                                <Grid.Resources>
+                                    <!--Bar template-->
+                                    <DataTemplate DataType="{x:Type local:TimelineBar}">
+                                        <Grid>
+                                            <Border HorizontalAlignment="Left" BorderThickness="2,1" SnapsToDevicePixels="True">
+                                                <Border.Width>
+                                                    <MultiBinding Converter="{StaticResource timelineWidthConverter}">
+                                                        <Binding Path="Duration" />
+                                                        <Binding Path="DataContext.MajorIntervalSeconds" ElementName="timelineControl" />
+                                                        <Binding Path="DataContext.PixelsPerInterval" ElementName="timelineControl" />
+                                                    </MultiBinding>
+                                                </Border.Width>
+                                                <Border.BorderBrush>
+                                                    <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
+                                                        <Binding Path="ColorIndex" />
+                                                        <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                    </MultiBinding>
+                                                </Border.BorderBrush>
+                                                <Border.Background>
+                                                    <MultiBinding Converter="{StaticResource timelineBackgroundConverter}">
+                                                        <Binding Path="ColorIndex" />
+                                                        <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                    </MultiBinding>
+                                                </Border.Background>
+
+                                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityInvertedConverter}}">
+                                                    <TextBlock Text="{Binding Path=Name}" FontSize="14" Margin="0,-1,-2,-1">
+                                                        <TextBlock.Foreground>
+                                                            <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
+                                                                <Binding Path="ColorIndex" />
+                                                                <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                                <Binding Source="{StaticResource labelBrush}" />
+                                                                <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Foreground>
+                                                    </TextBlock>
+                                                </Grid>
+                                            </Border>
+
+                                            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityConverter}}">
+                                                <TextBlock Text="{Binding Path=Name}" FontSize="14" Margin="2,0,0,0">
+                                                    <TextBlock.Foreground>
+                                                        <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
+                                                            <Binding Path="ColorIndex" />
+                                                            <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                            <Binding Source="{StaticResource labelBrush}" />
+                                                            <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Foreground>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+
+                                    <!--Point template-->
+                                    <DataTemplate DataType="{x:Type local:TimelinePoint}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Viewbox Width="20" Stretch="UniformToFill" HorizontalAlignment="Left">
+                                                <Grid>
+                                                    <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                                    <Path SnapsToDevicePixels="True" Data="M284.3 11.7c-15.6-15.6-40.9-15.6-56.6 0l-216 216c-15.6 15.6-15.6 40.9 0 56.6l216 216c15.6 15.6 40.9 15.6 56.6 0l216-216c15.6-15.6 15.6-40.9 0-56.6l-216-216z">
+                                                        <Path.Fill>
+                                                            <MultiBinding Converter="{StaticResource timelineForegroundConverter}">
+                                                                <Binding Path="ColorIndex" />
+                                                                <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                            </MultiBinding>
+                                                        </Path.Fill>
+                                                    </Path>
+                                                    <!--Same shape as above but 0.7x size and centred-->
+                                                    <Path SnapsToDevicePixels="True" Data="m 276.24849,81.363047 c -11.15073,-11.150729 -29.27477,-11.15073 -40.49698,0 L 81.363046,235.75151 c -11.150728,11.15073 -11.150729,29.27476 0,40.49698 L 235.75151,430.63695 c 11.15073,11.15073 29.27476,11.15073 40.49698,0 L 430.63695,276.24849 c 11.15073,-11.15073 11.15073,-29.27477 0,-40.49698 z">
+                                                        <Path.Fill>
+                                                            <MultiBinding Converter="{StaticResource timelineBackgroundConverter}">
+                                                                <Binding Path="ColorIndex" />
+                                                                <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                            </MultiBinding>
+                                                        </Path.Fill>
+                                                    </Path>
+                                                </Grid>
+                                            </Viewbox>
+
+                                            <TextBlock VerticalAlignment="Center" Text="{Binding Path=Name}" FontSize="14" Margin="2,0,0,0"
+                                                       Visibility="{Binding Path=LabelsExceedBars,ElementName=timelineControl,Converter={StaticResource boolToVisibilityConverter}}">
+                                                <TextBlock.Foreground>
+                                                    <MultiBinding Converter="{StaticResource timelineTextColourConverter}">
+                                                        <Binding Path="ColorIndex" />
+                                                        <Binding Path="TimelineEntryBrushes" ElementName="timelineControl" />
+                                                        <Binding Source="{StaticResource labelBrush}" />
+                                                        <Binding Path="ColoredEntryNameLabels" ElementName="timelineControl" />
+                                                    </MultiBinding>
+                                                </TextBlock.Foreground>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Grid.Resources>
+
+                                <ContentControl Content="{Binding}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

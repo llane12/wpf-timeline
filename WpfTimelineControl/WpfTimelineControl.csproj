@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -48,6 +49,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TimelineModels.cs" />
+    <Compile Include="BooleanConverter.cs" />
+    <Compile Include="ColorConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,8 +68,13 @@
     <Compile Include="Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TimelineData.cs" />
-    <Compile Include="TimelineElementConverters.cs" />
+    <Compile Include="TimelineBuilder.cs" />
+    <Compile Include="TimelineConstants.cs" />
+    <Compile Include="TimelineElementMarginConverter.cs" />
+    <Compile Include="TimelineElementWidthConverter.cs" />
+    <Compile Include="TimelineEntryColorConverters.cs" />
+    <Compile Include="TimelineViewModel.cs" />
+    <Compile Include="ViewModelBase.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
