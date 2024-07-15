@@ -79,6 +79,15 @@ namespace TestApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string LBL_Name {
+            get {
+                return ResourceManager.GetString("LBL_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string LBL_Start {

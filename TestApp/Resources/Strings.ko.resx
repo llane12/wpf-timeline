@@ -123,6 +123,9 @@
   <data name="LBL_Event" xml:space="preserve">
     <value>이벤트</value>
   </data>
+  <data name="LBL_Name" xml:space="preserve">
+    <value>이름</value>
+  </data>
   <data name="LBL_Start" xml:space="preserve">
     <value>시작</value>
   </data>

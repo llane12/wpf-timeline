@@ -12,7 +12,7 @@
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}"
                            LabelsExceedBarsSettingColorIndex="2"
                            ColoredEntryNameLabels="True"
-                           EventLabel="{lex:Loc Key=LBL_Event}"
+                           NameLabel="{lex:Loc Key=LBL_Name}"
                            StartLabel="{lex:Loc Key=LBL_Start}"
                            EndLabel="{lex:Loc Key=LBL_End}" />
     </Grid>

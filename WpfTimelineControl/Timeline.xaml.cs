@@ -31,10 +31,10 @@ namespace WpfTimelineControl
         /// <summary>
         /// Support for translation
         /// </summary>
-        public string EventLabel
+        public string NameLabel
         {
-            get { return (string)GetValue(EventLabelProperty); }
-            set { SetValue(EventLabelProperty, value); }
+            get { return (string)GetValue(NameLabelProperty); }
+            set { SetValue(NameLabelProperty, value); }
         }
 
         /// <summary>
@@ -79,11 +79,11 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(true));
 
-        public static readonly DependencyProperty EventLabelProperty = DependencyProperty.Register(
-                nameof(EventLabel),
+        public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
+                nameof(NameLabel),
                 typeof(string),
                 typeof(Timeline),
-                new PropertyMetadata("Event"));
+                new PropertyMetadata("Name"));
 
         public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
                 nameof(StartLabel),

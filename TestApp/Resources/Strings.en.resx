@@ -123,6 +123,9 @@
   <data name="LBL_Event" xml:space="preserve">
     <value>Event</value>
   </data>
+  <data name="LBL_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
   <data name="LBL_Start" xml:space="preserve">
     <value>Start</value>
   </data>
