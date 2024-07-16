@@ -29,7 +29,7 @@ namespace WpfTimelineControl
         public DateTime Start { get; }
         public DateTime End { get; }
         public TimeSpan Duration { get; }
-        public bool HasDuration => Duration != null && Duration > TimeSpan.Zero;
+        public bool HasDuration => Duration > TimeSpan.Zero;
     }
 
     public enum TimelineEntryType

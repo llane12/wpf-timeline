@@ -115,8 +115,8 @@ namespace WpfTimelineControl
         /// </summary>
         private void ToolTip_Opened(object sender, RoutedEventArgs e)
         {
-            var toolTip = sender as ToolTip;
-            var timelineEntry = toolTip.DataContext as TimelineEntry;
+            if (!(sender is ToolTip toolTip)) return;
+            if (!(toolTip.DataContext is TimelineEntry timelineEntry)) return;
 
             timelineEntry.StartLabel = StartLabel;
             timelineEntry.EndLabel = EndLabel;
