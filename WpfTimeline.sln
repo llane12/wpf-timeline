@@ -19,6 +19,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAppNetFramework", "Demo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoApps", "DemoApps", "{DA304276-20BE-41CF-8E49-ACABD57ADBCF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{4098156D-5545-4EA5-A337-061E948D637B}"
+	ProjectSection(SolutionItems) = preProject
+		DemoApps\Resources\app.ico = DemoApps\Resources\app.ico
+		DemoApps\Resources\Strings.en.resx = DemoApps\Resources\Strings.en.resx
+		DemoApps\Resources\Strings.ko.resx = DemoApps\Resources\Strings.ko.resx
+		DemoApps\Resources\Strings.resx = DemoApps\Resources\Strings.resx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +57,7 @@ Global
 		{10572554-D928-432C-A902-6943BC189849} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
 		{6FD1B65C-1D43-451A-8135-38B314DAAA7A} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
 		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
+		{4098156D-5545-4EA5-A337-061E948D637B} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39082CE2-83D2-4933-9F9A-D9DB06FEDF34}

@@ -1,4 +1,4 @@
-﻿using DemoAppNet6.Properties;
+﻿using DemoAppNet6.Resources;
 using System.Globalization;
 using WPFLocalizeExtension.Engine;
 

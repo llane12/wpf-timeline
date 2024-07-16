@@ -35,7 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Properties\app.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -54,12 +54,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WPFLocalizeExtension, Version=3.10.0.0, Culture=neutral, PublicKeyToken=c726e0262981a1eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\WPFLocalizeExtension.3.10.0\lib\net452\WPFLocalizeExtension.dll</HintPath>
-    </Reference>
-    <Reference Include="XAMLMarkupExtensions, Version=2.1.3.0, Culture=neutral, PublicKeyToken=c726e0262981a1eb, processorArchitecture=MSIL">
-      <HintPath>..\packages\XAMLMarkupExtensions.2.1.3\lib\net462\XAMLMarkupExtensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -71,7 +65,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Strings.Designer.cs">
+    <Compile Include="Resources\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
@@ -94,7 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -110,15 +103,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Strings.en.resx" />
-    <EmbeddedResource Include="Properties\Strings.ko.resx" />
-    <EmbeddedResource Include="Properties\Strings.resx">
+    <EmbeddedResource Include="..\Resources\Strings.en.resx">
+      <Link>Resources\Strings.en.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\Resources\Strings.ko.resx">
+      <Link>Resources\Strings.ko.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\app.ico" />
+    <None Include="Resources\app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WPFLocalizeExtension">
+      <Version>3.10.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

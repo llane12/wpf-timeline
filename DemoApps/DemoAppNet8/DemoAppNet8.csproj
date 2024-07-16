@@ -6,11 +6,12 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Properties\app.ico</ApplicationIcon>
+    <ApplicationIcon>..\Resources\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Properties\app.ico" />
+    <EmbeddedResource Include="..\Resources\Strings.en.resx" Link="Resources\Strings.en.resx" />
+    <EmbeddedResource Include="..\Resources\Strings.ko.resx" Link="Resources\Strings.ko.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Strings.Designer.cs">
+    <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
@@ -30,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Strings.resx">
+    <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>

@@ -6,11 +6,12 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Properties\app.ico</ApplicationIcon>
+    <ApplicationIcon>..\Resources\app.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Properties\app.ico" />
+    <EmbeddedResource Include="..\Resources\Strings.en.resx" Link="Resources\Strings.en.resx" />
+    <EmbeddedResource Include="..\Resources\Strings.ko.resx" Link="Resources\Strings.ko.resx" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,29 +23,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Properties\Strings.Designer.cs">
+    <Compile Update="Resources\Strings.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Strings.en.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.en.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Properties\Strings.ko.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Strings.ko.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Strings.en.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Strings.ko.resx">
-      <Generator></Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Properties\Strings.resx">
+    <EmbeddedResource Update="Resources\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>

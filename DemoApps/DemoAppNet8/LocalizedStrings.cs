@@ -1,4 +1,4 @@
-﻿using DemoAppNet8.Properties;
+﻿using DemoAppNet8.Resources;
 using System.Globalization;
 using WPFLocalizeExtension.Engine;
 

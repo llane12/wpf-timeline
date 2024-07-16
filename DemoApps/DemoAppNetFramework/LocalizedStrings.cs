@@ -1,4 +1,4 @@
-﻿using DemoAppNetFramework.Properties;
+﻿using DemoAppNetFramework.Resources;
 using System.Globalization;
 using WPFLocalizeExtension.Engine;
 
