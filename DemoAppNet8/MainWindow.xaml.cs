@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using TestApp.Resources;
+﻿using System.Reflection;
+using System.Text;
 using WpfTimelineControl;
 
-namespace TestApp
+namespace DemoAppNet8
 {
     public partial class MainWindow
     {

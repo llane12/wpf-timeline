@@ -1,7 +1,8 @@
-﻿using System.Globalization;
+﻿using DemoAppNetFramework.Properties;
+using System.Globalization;
 using WPFLocalizeExtension.Engine;
 
-namespace TestApp.Resources
+namespace DemoAppNetFramework
 {
     internal static class LocalizedStrings
     {
@@ -12,7 +13,7 @@ namespace TestApp.Resources
 
         internal static string GetString(string key, CultureInfo cultureInfo)
         {
-            var result = LocalizeDictionary.Instance.GetLocalizedObject("TestApp", "Strings", key, cultureInfo);
+            var result = LocalizeDictionary.Instance.GetLocalizedObject(nameof(DemoAppNetFramework), nameof(Strings), key, cultureInfo);
             return result as string;
         }
     }

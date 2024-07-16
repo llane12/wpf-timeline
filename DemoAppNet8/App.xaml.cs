@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
+using System.Windows;
 using WPFLocalizeExtension.Engine;
 
-namespace TestApp
+namespace DemoAppNet8
 {
-    public partial class App
+    public partial class App : Application
     {
         public App()
         {
