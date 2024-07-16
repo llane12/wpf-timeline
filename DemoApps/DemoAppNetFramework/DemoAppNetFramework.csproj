@@ -100,7 +100,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WpfTimelineControl\WpfTimelineControl.csproj">
+    <ProjectReference Include="..\..\WpfTimelineControl\WpfTimelineControl.csproj">
       <Project>{16671d71-9920-45a6-9713-ecc1de2ef846}</Project>
       <Name>WpfTimelineControl</Name>
     </ProjectReference>
