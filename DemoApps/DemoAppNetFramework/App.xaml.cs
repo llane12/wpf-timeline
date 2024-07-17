@@ -7,7 +7,7 @@ namespace DemoAppNetFramework
     {
         public App()
         {
-            LocalizeDictionary.Instance.Culture = new CultureInfo("ko");
+            LocalizeDictionary.Instance.Culture = new CultureInfo("en");
         }
     }
 }
