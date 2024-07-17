@@ -1,14 +1,20 @@
 ﻿<Window x:Class="DemoAppNetFramework.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:DemoAppNetFramework"
         xmlns:timeline="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
         xmlns:lex="http://wpflocalizeextension.codeplex.com"
         lex:LocalizeDictionary.DesignCulture="en"
         lex:ResxLocalizationProvider.DefaultAssembly="DemoAppNetFramework"
         lex:ResxLocalizationProvider.DefaultDictionary="Strings"
-        Title="Timeline Test App" SizeToContent="WidthAndHeight">
+        Title="{Binding Path=Title}"
+        SizeToContent="WidthAndHeight">
+    <Window.DataContext>
+        <local:MainWindowViewModel />
+    </Window.DataContext>
     <Grid>
-        <timeline:Timeline x:Name="myTimeline" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"
+        <timeline:Timeline Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"
+                           DataContext="{Binding Path=TimelineViewModel}"
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}"
                            LabelsExceedBarsSettingColorIndex="2"
                            ColoredEntryNameLabels="True"
