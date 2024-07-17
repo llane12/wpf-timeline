@@ -4,6 +4,8 @@ There are three WPF demo applications to demonstrate the Timeline control's comp
 - .NET 6.0
 - .NET 8.0
 
+The demo applications use the [WPFLocalizeExtension](https://www.nuget.org/packages/WpfLocalizeExtension) package to demonstrate localisation of the control.
+
 The demo applications are largely the same, but there are a few small differences to demonstrate different scenarios:
 
 | Demo App | Timeline DataContext | Default culture (set in App.xaml.cs) | 
