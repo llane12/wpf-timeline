@@ -1,5 +1,5 @@
 # WPF Timeline Control
-A timeline control for WPF, available for personal or commercial use under the [MIT license](https://github.com/llane12/wpf-timeline/blob/main/LICENSE).
+A timeline control for WPF, available for personal or commercial use under the [MIT license](LICENSE).
 
 ![](Preview.png)
 
@@ -31,7 +31,7 @@ A timeline control for WPF, available for personal or commercial use under the [
        myTimeline.DataContext = viewModel;
 
 ## Customisation
-See the [Test App](https://github.com/llane12/wpf-timeline/tree/main/TestApp) for a demonstration of all the customisation options.
+See the [Demo Apps](/DemoApps) for a demonstration of all the customisation options.
 
 ### Dependency Properties
 
