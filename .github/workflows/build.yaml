@@ -30,5 +30,4 @@ jobs:
 
     - name: Build
       run: |
-        dotnet restore --disable-parallel
-        msbuild -verbosity:minimal /p:Configuration=Release
+        msbuild -verbosity:minimal -t:Build -restore -p:Configuration=Release
