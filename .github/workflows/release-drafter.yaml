@@ -9,6 +9,8 @@ on:
       - 'README.md'
       - 'WpfTimeline.sln'
       - '/WpfTimelineControl'
+      - '/.github/release-drafter.yml'
+      - '/.github/workflows/release-drafter.yml'
 
 permissions:
   contents: read
