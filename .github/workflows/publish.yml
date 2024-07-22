@@ -1,0 +1,35 @@
+name: Publish Release to GitHub and NuGet
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  Publish:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Write private key file
+      uses: RollyPeres/base64-to-path@v1
+      with:
+        filePath: ${{ github.workspace }}/private.snk
+        encodedString: ${{ secrets.STRONG_NAME_KEY }}
+
+    - name: Release build
+      run: |
+        msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Release -p:GitVersion_NuGetVersionV2=${{ github.event.release.tag_name }}
+
+    - name: Upload release assets
+      uses: softprops/action-gh-release@v2
+      with:
+        files: WpfTimelineControl/bin/Release/*.nupkg
+
+    # - name: Upload NuGet package
+    #   run: |
+    #     dotnet nuget push WpfTimelineControl/bin/Release/*.nupkg -k ${{ secrets.NugetAPIKey }} -s https://api.nuget.org/v3/index.json
