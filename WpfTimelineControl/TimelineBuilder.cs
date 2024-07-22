@@ -3,11 +3,24 @@ using System.Linq;
 
 namespace WpfTimelineControl
 {
+    /// <summary>
+    /// This is the class which is used to build the <see cref="TimelineViewModel"/>. It is exposed as an interface rather than a static class
+    /// to facilitate unit testing of the places where it is used; this would be difficult using a static implementation.
+    /// </summary>
     public interface ITimelineBuilder
     {
+        /// <summary>
+        /// Builds a <see cref="TimelineViewModel"/> from a colllection of <see cref="TimelineEntry"/>.
+        /// These can be <see cref="TimelineBar"/> or <see cref="TimelinePoint"/>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="timelineEntries"/> cannot be null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="timelineEntries"/> must contain at least 1 entry.</exception>
         TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries);
     }
 
+    /// <summary>
+    /// Provides a concrete implementation of the <see cref="ITimelineBuilder"/>
+    /// </summary>
     public static class TimelineBuilderFactory
     {
         public static ITimelineBuilder Create()
@@ -22,7 +35,8 @@ namespace WpfTimelineControl
         /// Builds a <see cref="TimelineViewModel"/> from a colllection of <see cref="TimelineEntry"/>.
         /// These can be <see cref="TimelineBar"/> or <see cref="TimelinePoint"/>.
         /// </summary>
-        /// <exception cref="ArgumentNullException"><paramref name="timelineEntries"/> cannot be null</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="timelineEntries"/> cannot be null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="timelineEntries"/> must contain at least 1 entry.</exception>
         public TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries)
         {
             if (timelineEntries == null) throw new ArgumentNullException(nameof(timelineEntries));
@@ -73,7 +87,7 @@ namespace WpfTimelineControl
 
             var majorIntervalOptions = TimelineConstants.GetIntervalOptions().ToList();
 
-            double targetNumber = durationOfAllEntries.TotalSeconds / TimelineConstants.GetTimelineScalingFactor();
+            double targetNumber = durationOfAllEntries.TotalSeconds / TimelineConstants.GetScalingFactor();
             int closestOption = majorIntervalOptions.OrderBy(v => Math.Abs(v - targetNumber)).First();
             viewModel.SetMajorIntervalSeconds(closestOption);
         }
