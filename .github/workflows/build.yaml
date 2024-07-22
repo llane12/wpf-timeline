@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 
 on:
   push:
@@ -20,6 +20,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Fetch all history
       run: |
@@ -41,15 +43,9 @@ jobs:
       with:
         name: dotnet-results
         path: TestResults
-      # Use always() to always run this step to publish test results when there are test failures
+      # Always run this step, even when there are test failures
       if: ${{ always() }}
 
     - name: Release build
       run: |
         msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Release
-
-    - name: Upload NuGet package
-      uses: actions/upload-artifact@v4
-      with:
-        name: nuget-package
-        path: WpfTimelineControl\bin\Release\*.nupkg
