@@ -4,7 +4,11 @@ on:
   push:
     branches:
       - main
-      - actions
+    paths:
+      - 'LICENSE'
+      - 'README.md'
+      - 'WpfTimeline.sln'
+      - '/WpfTimelineControl'
 
 jobs:
   Release-Draft:
