@@ -49,9 +49,3 @@ jobs:
     - name: Release build
       run: |
         msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Release
-
-    - name: Upload NuGet package
-      uses: actions/upload-artifact@v4
-      with:
-        name: nuget-package
-        path: WpfTimelineControl\bin\Release\*.nupkg
