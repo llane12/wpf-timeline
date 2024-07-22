@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace WpfTimelineControl
@@ -27,6 +26,7 @@ namespace WpfTimelineControl
         public TimelineViewModel BuildViewModel(params TimelineEntry[] timelineEntries)
         {
             if (timelineEntries == null) throw new ArgumentNullException(nameof(timelineEntries));
+            if (timelineEntries.Count() == 0) throw new ArgumentException("At least 1 entry is required");
 
             TimelineViewModel viewModel = new TimelineViewModel();
 

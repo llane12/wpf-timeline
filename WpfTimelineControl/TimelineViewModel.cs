@@ -15,7 +15,7 @@ namespace WpfTimelineControl
         private int pixelsPerInterval = 320;
         private int majorIntervalSeconds = 60;
 
-        public TimelineViewModel()
+        internal TimelineViewModel()
         {
             MajorIntervalSecondsDecreaseCommand = new MyCommand(MajorIntervalSecondsDecrease, MajorIntervalSecondsCanDecrease);
             MajorIntervalSecondsIncreaseCommand = new MyCommand(MajorIntervalSecondsIncrease, MajorIntervalSecondsCanIncrease);
@@ -34,13 +34,15 @@ namespace WpfTimelineControl
             set { title = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(ShowTitle)); NotifyPropertyChanged(nameof(ShowTopBar)); }
         }
 
-        public bool ShowTopBar => ShowTitle || ShowControls;
         public bool ShowTitle => !string.IsNullOrWhiteSpace(title);
+
         public bool ShowControls
         {
             get => showControls;
             set { showControls = value; NotifyPropertyChanged(); NotifyPropertyChanged(nameof(ShowTopBar)); }
         }
+
+        public bool ShowTopBar => ShowTitle || ShowControls;
 
         public DateTime Start
         {
@@ -72,7 +74,7 @@ namespace WpfTimelineControl
                 TimelineBuilder.RebuildMarkers(this);
 
                 NotifyPropertyChanged();
-                NotifyPropertyChanged(nameof(Start));
+                NotifyPropertyChanged(nameof(Start)); // In case the first interval changes
                 NotifyPropertyChanged(nameof(MajorIntervalString));
                 MajorIntervalSecondsDecreaseCommand.RaiseCanExecuteChanged();
                 MajorIntervalSecondsIncreaseCommand.RaiseCanExecuteChanged();
@@ -121,8 +123,6 @@ namespace WpfTimelineControl
             int currentIndex = options.IndexOf(majorIntervalSeconds);
 
             MajorIntervalSeconds = options[currentIndex - 1];
-
-            PixelsPerInterval = pixelsPerInterval;
         }
 
         private void MajorIntervalSecondsIncrease()
@@ -134,8 +134,6 @@ namespace WpfTimelineControl
             int currentIndex = options.IndexOf(majorIntervalSeconds);
 
             MajorIntervalSeconds = options[currentIndex + 1];
-
-            PixelsPerInterval = pixelsPerInterval;
         }
 
         private bool MajorIntervalSecondsCanDecrease()
