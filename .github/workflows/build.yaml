@@ -43,7 +43,7 @@ jobs:
       with:
         name: dotnet-results
         path: TestResults
-      # Always run this step when there are test failures
+      # Always run this step, even when there are test failures
       if: ${{ always() }}
 
     - name: Release build
