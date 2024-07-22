@@ -1,5 +1,6 @@
 # WPF Timeline Control
 [![CodeFactor](https://www.codefactor.io/repository/github/llane12/wpf-timeline/badge/main)](https://www.codefactor.io/repository/github/llane12/wpf-timeline/overview/main)
+[![Build and Test](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml/badge.svg)](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml)
 
 A timeline control for WPF, available for personal or commercial use under the [MIT license](LICENSE).
 
