@@ -71,9 +71,9 @@ namespace WpfTimelineControl
                 return;
             }
 
-            var majorIntervalOptions = new List<int>(TimelineConstants.IntervalOptions);
+            var majorIntervalOptions = TimelineConstants.GetIntervalOptions().ToList();
 
-            double targetNumber = durationOfAllEntries.TotalSeconds / TimelineConstants.TimelineScalingFactor;
+            double targetNumber = durationOfAllEntries.TotalSeconds / TimelineConstants.GetTimelineScalingFactor();
             int closestOption = majorIntervalOptions.OrderBy(v => Math.Abs(v - targetNumber)).First();
             viewModel.SetMajorIntervalSeconds(closestOption);
         }
