@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build+Test:
+  Build-Test:
     runs-on: windows-latest
 
     steps:
