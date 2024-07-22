@@ -1,11 +1,36 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.8.34330.188
+VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{EC56FEEA-7C56-4B0C-A26B-C5D284AFA158}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfTimelineControl", "WpfTimelineControl\WpfTimelineControl.csproj", "{16671D71-9920-45A6-9713-ECC1DE2EF846}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTimelineControl", "WpfTimelineControl\WpfTimelineControl.csproj", "{65356F76-1D14-4E20-90E4-A35271F71A00}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79940B38-6A05-46D5-8469-A634A81BB278}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoAppNet6", "DemoApps\DemoAppNet6\DemoAppNet6.csproj", "{10572554-D928-432C-A902-6943BC189849}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoAppNet8", "DemoApps\DemoAppNet8\DemoAppNet8.csproj", "{6FD1B65C-1D43-451A-8135-38B314DAAA7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoAppNetFramework", "DemoApps\DemoAppNetFramework\DemoAppNetFramework.csproj", "{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DemoApps", "DemoApps", "{DA304276-20BE-41CF-8E49-ACABD57ADBCF}"
+	ProjectSection(SolutionItems) = preProject
+		DemoApps\README.md = DemoApps\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{4098156D-5545-4EA5-A337-061E948D637B}"
+	ProjectSection(SolutionItems) = preProject
+		DemoApps\Resources\app.ico = DemoApps\Resources\app.ico
+		DemoApps\Resources\Strings.en.resx = DemoApps\Resources\Strings.en.resx
+		DemoApps\Resources\Strings.ko.resx = DemoApps\Resources\Strings.ko.resx
+		DemoApps\Resources\Strings.resx = DemoApps\Resources\Strings.resx
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{967CCC15-1046-4260-BD28-B49B3F79DEA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +38,37 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EC56FEEA-7C56-4B0C-A26B-C5D284AFA158}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC56FEEA-7C56-4B0C-A26B-C5D284AFA158}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC56FEEA-7C56-4B0C-A26B-C5D284AFA158}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC56FEEA-7C56-4B0C-A26B-C5D284AFA158}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65356F76-1D14-4E20-90E4-A35271F71A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65356F76-1D14-4E20-90E4-A35271F71A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65356F76-1D14-4E20-90E4-A35271F71A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65356F76-1D14-4E20-90E4-A35271F71A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16671D71-9920-45A6-9713-ECC1DE2EF846}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16671D71-9920-45A6-9713-ECC1DE2EF846}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16671D71-9920-45A6-9713-ECC1DE2EF846}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16671D71-9920-45A6-9713-ECC1DE2EF846}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10572554-D928-432C-A902-6943BC189849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10572554-D928-432C-A902-6943BC189849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10572554-D928-432C-A902-6943BC189849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10572554-D928-432C-A902-6943BC189849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FD1B65C-1D43-451A-8135-38B314DAAA7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FD1B65C-1D43-451A-8135-38B314DAAA7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FD1B65C-1D43-451A-8135-38B314DAAA7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FD1B65C-1D43-451A-8135-38B314DAAA7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{967CCC15-1046-4260-BD28-B49B3F79DEA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967CCC15-1046-4260-BD28-B49B3F79DEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967CCC15-1046-4260-BD28-B49B3F79DEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967CCC15-1046-4260-BD28-B49B3F79DEA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{10572554-D928-432C-A902-6943BC189849} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
+		{6FD1B65C-1D43-451A-8135-38B314DAAA7A} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
+		{63C4BD54-5E5F-44CE-9B48-5A2DE6FEF607} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
+		{4098156D-5545-4EA5-A337-061E948D637B} = {DA304276-20BE-41CF-8E49-ACABD57ADBCF}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {13E9F417-B466-49BE-A30D-A03F59393C15}
+		SolutionGuid = {39082CE2-83D2-4933-9F9A-D9DB06FEDF34}
 	EndGlobalSection
 EndGlobal

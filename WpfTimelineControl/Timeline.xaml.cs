@@ -6,7 +6,7 @@ namespace WpfTimelineControl
 {
     public partial class Timeline
     {
-        private static readonly SolidColorBrush[] defaultBrushes = new SolidColorBrush[]
+        private static readonly Brush[] defaultBrushes = new SolidColorBrush[]
         {
             Brushes.Red, Brushes.Green, Brushes.Blue, Brushes.Yellow, Brushes.Magenta,
         };
@@ -16,9 +16,9 @@ namespace WpfTimelineControl
             InitializeComponent();
         }
 
-        public SolidColorBrush[] TimelineEntryBrushes
+        public Brush[] TimelineEntryBrushes
         {
-            get => (SolidColorBrush[])GetValue(TimelineEntryBrushesProperty);
+            get => (Brush[])GetValue(TimelineEntryBrushesProperty);
             set => SetValue(TimelineEntryBrushesProperty, value);
         }
 
@@ -31,10 +31,10 @@ namespace WpfTimelineControl
         /// <summary>
         /// Support for translation
         /// </summary>
-        public string EventLabel
+        public string NameLabel
         {
-            get { return (string)GetValue(EventLabelProperty); }
-            set { SetValue(EventLabelProperty, value); }
+            get { return (string)GetValue(NameLabelProperty); }
+            set { SetValue(NameLabelProperty, value); }
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace WpfTimelineControl
             set { SetValue(LabelsExceedBarsSettingColorIndexProperty, value); }
         }
 
-        protected bool LabelsExceedBars
+        public bool LabelsExceedBars
         {
             get { return (bool)GetValue(LabelsExceedBarsProperty); }
             set { SetValue(LabelsExceedBarsProperty, value); }
@@ -79,11 +79,11 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(true));
 
-        public static readonly DependencyProperty EventLabelProperty = DependencyProperty.Register(
-                nameof(EventLabel),
+        public static readonly DependencyProperty NameLabelProperty = DependencyProperty.Register(
+                nameof(NameLabel),
                 typeof(string),
                 typeof(Timeline),
-                new PropertyMetadata("Event"));
+                new PropertyMetadata("Name"));
 
         public static readonly DependencyProperty StartLabelProperty = DependencyProperty.Register(
                 nameof(StartLabel),
@@ -109,10 +109,14 @@ namespace WpfTimelineControl
                 typeof(Timeline),
                 new PropertyMetadata(true));
 
+        /// <summary>
+        /// This is only here as a way to pass a value from the parent timeline control to the ToolTips,
+        /// which are not part of the same visual tree so cannot access the dependency properties.
+        /// </summary>
         private void ToolTip_Opened(object sender, RoutedEventArgs e)
         {
-            var toolTip = sender as ToolTip;
-            var timelineEntry = toolTip.DataContext as TimelineEntry;
+            if (!(sender is ToolTip toolTip)) return;
+            if (!(toolTip.DataContext is TimelineEntry timelineEntry)) return;
 
             timelineEntry.StartLabel = StartLabel;
             timelineEntry.EndLabel = EndLabel;
