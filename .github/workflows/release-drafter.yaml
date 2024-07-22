@@ -4,13 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'LICENSE'
-      - 'README.md'
-      - 'WpfTimeline.sln'
-      - '/WpfTimelineControl'
-      - '/.github/release-drafter.yml'
-      - '/.github/workflows/release-drafter.yml'
+    paths-ignore:
+      - 'DemoApps/**'
+      - 'Tests/**'
 
 permissions:
   contents: read
