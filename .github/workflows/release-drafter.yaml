@@ -33,11 +33,11 @@ jobs:
       run: |
         echo '${{ toJSON(steps.gitversion) }}' | jq
 
-    # - name: Create GitHub Release
-    #   id: create_release
-    #   uses: release-drafter/release-drafter@v6
-    #   with:
-    #     tag: '${{ steps.gitversion.outputs.semVer }}'
-    #     name: 'Release ${{ steps.gitversion.outputs.semVer }}'
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Create GitHub Release
+      id: create_release
+      uses: release-drafter/release-drafter@v6
+      with:
+        tag: '${{ steps.gitversion.outputs.nuGetVersionV2 }}'
+        name: 'Release ${{ steps.gitversion.outputs.nuGetVersionV2 }}'
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
