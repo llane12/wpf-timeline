@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  Build+Test:
     runs-on: windows-latest
 
     steps:
@@ -28,6 +28,28 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Build
+    - name: Debug build
       run: |
-        msbuild -verbosity:minimal -t:Build -restore -p:Configuration=Release
+        msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Debug
+
+    - name: Unit tests
+      run: |
+        dotnet test Tests --logger trx --results-directory "TestResults"
+
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: dotnet-results
+        path: TestResults
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
+
+    - name: Release build
+      run: |
+        msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Release
+
+    - name: Upload NuGet package
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-package
+        path: WpfTimelineControl\bin\Release\*.nupkg
