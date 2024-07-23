@@ -6,9 +6,6 @@ on:
 
 jobs:
   Publish:
-    permissions:
-      contents: write
-
     runs-on: windows-latest
 
     steps:
@@ -37,7 +34,7 @@ jobs:
     - name: Upload release assets
       uses: softprops/action-gh-release@v2
       with:
-        files: WpfTimelineControl/bin/Release/*.nupkg
+        files: WpfTimelineControl\bin\Release\*.nupkg
 
     # - name: Upload NuGet package
     #   run: |
