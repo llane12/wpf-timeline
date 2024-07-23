@@ -25,10 +25,16 @@ jobs:
       run: |
         msbuild -verbosity:minimal -t:Rebuild -restore -p:Configuration=Release -p:GitVersion_NuGetVersionV2=${{ github.event.release.tag_name }}
 
-    - name: Upload release assets
-      uses: softprops/action-gh-release@v2
+    - name: Upload NuGet package
+      uses: actions/upload-artifact@v4
       with:
-        files: WpfTimelineControl/bin/Release/*.nupkg
+        name: nuget-package
+        path: WpfTimelineControl\bin\Release\*.nupkg
+
+    # - name: Upload release assets
+    #   uses: softprops/action-gh-release@v2
+    #   with:
+    #     files: WpfTimelineControl/bin/Release/*.nupkg
 
     # - name: Upload NuGet package
     #   run: |
