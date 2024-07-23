@@ -6,6 +6,9 @@ on:
 
 jobs:
   Publish:
+    permissions:
+      contents: write
+
     runs-on: windows-latest
 
     steps:
