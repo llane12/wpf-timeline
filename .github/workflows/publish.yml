@@ -28,8 +28,8 @@ jobs:
     - name: Upload release assets
       uses: softprops/action-gh-release@v2
       with:
-        files: WpfTimelineControl\bin\Release\*.nupkg
+        files: WpfTimelineControl/bin/Release/*.nupkg
 
     - name: Upload NuGet package
       run: |
-        dotnet nuget push WpfTimelineControl\bin\Release\WPFTimelineControl.${{ github.event.release.tag_name }}.nupkg -k ${{ secrets.NugetAPIKey }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push ${{ github.workspace }}\WpfTimelineControl\bin\Release\*.nupkg -k ${{ secrets.NugetAPIKey }} -s https://api.nuget.org/v3/index.json
