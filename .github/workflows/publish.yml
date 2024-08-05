@@ -32,4 +32,4 @@ jobs:
 
     - name: Upload NuGet package
       run: |
-        dotnet nuget push ${{ github.workspace }}\WpfTimelineControl\bin\Release\*.nupkg -k ${{ secrets.NugetAPIKey }} -s https://api.nuget.org/v3/index.json
+        dotnet nuget push ${{ github.workspace }}\WpfTimelineControl\bin\Release\*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
