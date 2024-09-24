@@ -1,5 +1,5 @@
 # WPF Timeline Control
-[![CodeFactor](https://www.codefactor.io/repository/github/llane12/wpf-timeline/badge/main)](https://www.codefactor.io/repository/github/llane12/wpf-timeline/overview/main)
+[![CodeFactor](https://www.codefactor.io/repository/github/llane12/wpf-timeline/badge)](https://www.codefactor.io/repository/github/llane12/wpf-timeline)
 [![Build and Test](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml/badge.svg)](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml)
 [![NuGet](https://img.shields.io/nuget/v/WPFTimelineControl)](https://www.nuget.org/packages/WPFTimelineControl)
 
