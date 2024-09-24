@@ -1,39 +1,43 @@
 # WPF Timeline Control
-[![CodeFactor](https://www.codefactor.io/repository/github/llane12/wpf-timeline/badge/main)](https://www.codefactor.io/repository/github/llane12/wpf-timeline/overview/main)
+[![CodeFactor](https://www.codefactor.io/repository/github/llane12/wpf-timeline/badge)](https://www.codefactor.io/repository/github/llane12/wpf-timeline)
 [![Build and Test](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml/badge.svg)](https://github.com/llane12/wpf-timeline/actions/workflows/build.yaml)
 [![NuGet](https://img.shields.io/nuget/v/WPFTimelineControl)](https://www.nuget.org/packages/WPFTimelineControl)
 
-A timeline control for WPF, available for personal or commercial use under the [MIT license](LICENSE).
+A Timeline control for WPF, available for personal or commercial use under the [MIT license](LICENSE).
+
+Simple to use, robust and customisable.
+
+Works well .NET Framework 4.6.2+ & .NET 6+
 
 ![](Preview.png)
 
 ## Using the control
 
 1. Install the NuGet package or download the source add add it to your Solution.
-1. In your Window or UserControl, add the XAML namespace:
+2. In your Window or UserControl, add the XAML namespace:
+```xml
+xmlns:tim="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
+```
+3. Add the Timeline control:
+```xml
+<Grid>
+    <tim:Timeline x:Name="myTimeline" />
+</Grid>
+```
+4. Through a Data Binding or code-behind, set the Timeline's DataContext:
+```csharp
+List<TimelineEntry> entries = new List<TimelineEntry>
+{
+    new TimelineBar("Event 1", DateTime.Now, TimeSpan.FromSeconds(92), 0),
+    new TimelinePoint("Event 2", DateTime.Now, TimeSpan.FromSeconds(17), 1),
+};
 
-        xmlns:tim="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
+var timelineBuilder = TimelineBuilderFactory.Create();
 
-1. Add the Timeline control:
+var viewModel = timelineBuilder.BuildViewModel(entries.ToArray());
 
-       <Grid>
-           <tim:Timeline x:Name="myTimeline" />
-       </Grid>
-
-1. Through a Data Binding or code-behind, set the Timeline's DataContext:
-
-       List<TimelineEntry> entries = new List<TimelineEntry>
-       {
-           new TimelineBar("Event 1", DateTime.Now, TimeSpan.FromSeconds(92), 0),
-           new TimelinePoint("Event 2", DateTime.Now, TimeSpan.FromSeconds(17), 1),
-       };
-
-       var timelineBuilder = TimelineBuilderFactory.Create();
-
-       var viewModel = timelineBuilder.BuildViewModel(entries.ToArray());
-
-       myTimeline.DataContext = viewModel;
-
+myTimeline.DataContext = viewModel;
+```
 ## Customisation
 See the [Demo Apps](/DemoApps) for a demonstration of all the customisation options.
 
@@ -119,4 +123,35 @@ The `TimelineBuilder` uses these values, which I have set based on my experience
 
 The timeline is always linear; each interval represents the same amount of time. The builder chooses one of the values from the **`IntervalOptions`** array, from 10 seconds up to 60 minutes.
 
-The builder calculates the total duration of the events (from the beggining of the first to the end of the last) then divides this by the **`TimelineScalingFactor`** and finds the closest value from the options array.
+The builder calculates the total duration of the events (from the beginning of the first to the end of the last) then divides this by the **`TimelineScalingFactor`** and finds the closest value from the options array.
+
+## Contributing
+
+### Build + Test
+
+I wanted the control to be as widely usable as possible, which means supporting .NET Framework. So it is best to work in Visual Studio 2022.
+
+However, all projects except DemoAppNetFramework can be built with the .NET CLI:
+
+```pwsh
+git clone https://github.com/llane12/wpf-timeline.git
+cd wpf-timeline
+cd WpfTimelineControl
+dotnet build
+```
+
+The unit tests can also be run with the .NET CLI:
+```pwsh
+cd Tests
+dotnet test
+```
+
+To build the whole Solution or Publish the control, use Visual Studio.
+
+### Submit a pull request
+
+If you would like to contribute, please fork the repository and open a pull request to the `develop` branch.
+
+### Request a customisation
+
+If you would like to see a customisation option added, please open an [Issue](https://github.com/llane12/wpf-timeline/issues).
