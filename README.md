@@ -123,4 +123,35 @@ The `TimelineBuilder` uses these values, which I have set based on my experience
 
 The timeline is always linear; each interval represents the same amount of time. The builder chooses one of the values from the **`IntervalOptions`** array, from 10 seconds up to 60 minutes.
 
-The builder calculates the total duration of the events (from the beggining of the first to the end of the last) then divides this by the **`TimelineScalingFactor`** and finds the closest value from the options array.
+The builder calculates the total duration of the events (from the beginning of the first to the end of the last) then divides this by the **`TimelineScalingFactor`** and finds the closest value from the options array.
+
+## Contributing
+
+### Build + Test
+
+I wanted the control to be as widely usable as possible, which means supporting .NET Framework. So it is best to work in Visual Studio 2022.
+
+However, all projects except DemoAppNetFramework can be built with the .NET CLI:
+
+```pwsh
+git clone https://github.com/llane12/wpf-timeline.git
+cd wpf-timeline
+cd WpfTimelineControl
+dotnet build
+```
+
+The unit tests can also be run with the .NET CLI:
+```pwsh
+cd Tests
+dotnet test
+```
+
+To build the whole Solution or Publish the control, use Visual Studio.
+
+### Submit a pull request
+
+If you would like to contribute, please fork the repository and open a pull request to the `develop` branch.
+
+### Request a customisation
+
+If you would like to see a customisation option added, please open an [Issue](/issues).
