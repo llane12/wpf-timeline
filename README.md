@@ -154,4 +154,4 @@ If you would like to contribute, please fork the repository and open a pull requ
 
 ### Request a customisation
 
-If you would like to see a customisation option added, please open an [Issue](/issues).
+If you would like to see a customisation option added, please open an [Issue](https://github.com/llane12/wpf-timeline/issues).
