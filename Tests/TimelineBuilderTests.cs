@@ -49,7 +49,7 @@ namespace Tests
         public void GIVEN_TimelineEntries_Empty_WHEN_BuildViewModel_THEN_ArgumentException()
         {
             Assert.Throws<ArgumentException>(() => builder.BuildViewModel());
-            Assert.Throws<ArgumentException>(() => builder.BuildViewModel(new TimelineEntry[] { }));
+            Assert.Throws<ArgumentException>(() => builder.BuildViewModel(Array.Empty<TimelineEntry>()));
         }
 
         [Test]
