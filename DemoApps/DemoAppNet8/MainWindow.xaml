@@ -9,7 +9,7 @@
         Title="{Binding Path=Title}"
         SizeToContent="WidthAndHeight">
     <Grid>
-        <timeline:Timeline Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top"
+        <timeline:Timeline HorizontalAlignment="Left" VerticalAlignment="Top"
                            DataContext="{Binding Path=TimelineViewModel}"
                            TimelineEntryBrushes="{StaticResource TimelineItemColors}"
                            LabelsExceedBarsSettingColorIndex="2"
