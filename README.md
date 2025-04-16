@@ -7,7 +7,7 @@ A Timeline control for WPF, available for personal or commercial use under the [
 
 Simple to use, robust and customisable.
 
-Works well .NET Framework 4.6.2+ & .NET 6+
+Works well .NET Framework 4.6.2+ & .NET 8+
 
 ![](Preview.png)
 
@@ -24,7 +24,7 @@ xmlns:tim="clr-namespace:WpfTimelineControl;assembly=WpfTimelineControl"
     <tim:Timeline x:Name="myTimeline" />
 </Grid>
 ```
-4. Through a Data Binding or code-behind, set the Timeline's DataContext:
+4. Set the Timeline's DataContext through a Data Binding or code-behind:
 ```csharp
 List<TimelineEntry> entries = new List<TimelineEntry>
 {
