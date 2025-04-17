@@ -11,7 +11,7 @@ namespace DemoAppNet8
         {
             Services = ConfigureServices();
 
-            LocalizeDictionary.Instance.Culture = new CultureInfo("en");
+            LocalizeDictionary.Instance.Culture = new CultureInfo("ko");
 
             InitializeComponent();
         }

@@ -49,7 +49,7 @@ namespace Tests
         public void GIVEN_TimelineEntries_Empty_WHEN_BuildViewModel_THEN_ArgumentException()
         {
             Assert.Throws<ArgumentException>(() => builder.BuildViewModel());
-            Assert.Throws<ArgumentException>(() => builder.BuildViewModel(new TimelineEntry[] { }));
+            Assert.Throws<ArgumentException>(() => builder.BuildViewModel(Array.Empty<TimelineEntry>()));
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace Tests
         [Test]
         public void GIVEN_TimelineConstants_AND_TimelineEntries_ThreeSortedMixed_WHEN_BuildViewModel_THEN_ClosestMajorIntervalSelected()
         {
-            TimelineConstants.SetIntervalOptions(new int[] { 30, 60, 300, 600, 1800 });
+            TimelineConstants.SetIntervalOptions([30, 60, 300, 600, 1800]);
             TimelineConstants.SetScalingFactor(2.0);
             var viewModel = builder.BuildViewModel(threeSortedMixedEntries.ToArray());
             // Target = 840secs / 2.0 = 420, 300 is closest
@@ -84,7 +84,7 @@ namespace Tests
         [Test]
         public void GIVEN_TimelineConstants_AND_TimelineEntries_ThreeSortedMixed_WHEN_BuildViewModel_THEN_IntervalMarkersCreated()
         {
-            TimelineConstants.SetIntervalOptions(new int[] { 30, 60, 300, 600, 1800 });
+            TimelineConstants.SetIntervalOptions([30, 60, 300, 600, 1800]);
             TimelineConstants.SetScalingFactor(2.0);
             var viewModel = builder.BuildViewModel(threeSortedMixedEntries.ToArray());
             // Need to cover 14minutes with intervals of 5 minutes = 3 markers
