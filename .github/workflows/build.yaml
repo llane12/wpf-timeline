@@ -39,7 +39,7 @@ jobs:
         dotnet test Tests --logger trx --results-directory "TestResults"
 
     - name: Upload dotnet test results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: dotnet-results
         path: TestResults
